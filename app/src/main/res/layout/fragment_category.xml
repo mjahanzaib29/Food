@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:showIn="@layout/app_bar_main">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:text="my name is Category"
+            android:gravity="center"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView_category"
+            android:layout_weight="9"
+            />
+        <Button
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:text="+"
+            android:id="@+id/category_add"
+            android:textSize="30sp"
+            android:background="@drawable/floatingbutton"
+            android:elevation="4dp"
+            android:layout_gravity="bottom|right"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:textColor="#ffff" />
+    </LinearLayout>
+</LinearLayout>

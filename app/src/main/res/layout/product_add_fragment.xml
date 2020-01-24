@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D3D3D3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15sp"
+            android:background="@android:color/white"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginRight="15sp">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:id="@+id/item_name"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="10sp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_category"
+                android:layout_marginBottom="10sp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sold by"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"/>
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text"
+                    android:id="@+id/RadioGroup_sortby"
+                    android:checkedButton="@+id/each"
+                    android:orientation="horizontal"
+                    android:layout_weight="7"
+                    >
+                    <!--        <TextView-->
+                    <!--            android:id="@+id/item_soldby"-->
+                    <!--            android:layout_width="wrap_content"-->
+                    <!--            android:layout_height="wrap_content"-->
+                    <!--            android:visibility="visible">-->
+                    <!--        </TextView>-->
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/each"
+                        android:text="Each" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/weight"
+                        android:text="Weight" />
+
+
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10sp"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Price"
+                    android:id="@+id/item_price"
+                    android:layout_weight="5"
+                    android:inputType="number"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cost"
+                    android:id="@+id/item_Cost"
+                    android:layout_weight="5"
+                    android:inputType="number"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10sp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Serial #"
+                    android:layout_weight="9"
+                    android:id="@+id/item_serialno"
+                    android:inputType="number"/>
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="5">
+
+                    <EditText
+                        android:id="@+id/item_barcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_barcode"
+                        android:ems="13"
+                        android:hint="Barcode" />
+
+                    <Button
+                        android:id="@+id/button1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:text=" "
+                        android:background="?android:attr/selectableItemBackground"
+                        />
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15sp"
+            android:background="@android:color/white"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="15sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="15sp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inventory Stocks"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Track stock"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="15sp"
+                    android:textSize="18sp"
+                    android:layout_weight="1"/>
+                <Switch
+                    android:id="@+id/stock_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:layout_marginTop="15sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Enter_stock"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stock"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorPrimary"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/item_stock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="Enter stock"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15sp"
+            android:background="@android:color/white"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="15sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="15sp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inventory Expiry"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Track stock Expiry"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="15sp"
+                    android:textSize="18sp"
+                    android:layout_weight="1"/>
+                <Switch
+                    android:id="@+id/stock_expiry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:layout_marginTop="15sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Enter_expiry"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expiry"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorPrimary"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/item_expiry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="Enter expiry date"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15sp"
+            android:background="@android:color/white"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="15sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="15sp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Presentation on POS"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15sp"
+                android:id="@+id/abc">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text"
+                    android:id="@+id/color_image"
+                    android:checkedButton="@+id/color"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/color"
+                        android:text="Color"
+                        android:layout_marginRight="10sp"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imagerb"
+                        android:text="Image"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:id="@+id/color_scroll"
+
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View android:id="@+id/darkgreencolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/PaleGreen"
+                        android:visibility="visible"
+                        android:layout_marginRight="15sp"/>
+
+                    <View android:id="@+id/bluecolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/MediumSeaGreen"
+                        android:visibility="visible"
+                        android:layout_marginRight="15sp"/>
+
+                    <View android:id="@+id/redcolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/MediumTurquoise"
+                        android:visibility="visible"
+                        android:layout_marginRight="15sp"/>
+
+                    <View android:id="@+id/pinkcolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/MediumSlateBlue"
+                        android:visibility="visible"
+                        android:layout_marginRight="15sp"/>
+
+                    <View android:id="@+id/orangecolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/SandyBrown"
+                        android:visibility="visible"
+                        android:layout_marginRight="15sp"/>
+
+                    <View android:id="@+id/greencolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/DarkCyan"
+                        android:visibility="visible"
+                        android:layout_marginRight="15sp"/>
+
+                    <View android:id="@+id/purplecolor"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/DarkGray"
+                        android:visibility="visible"/>
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/image_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/abc"
+                android:layout_marginTop="15sp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/item_imageview"
+                    android:layout_width="100sp"
+                    android:layout_height="150sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15sp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/item_choosephoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_item_add_folder"
+                        android:drawablePadding="10sp"
+                        android:text="Choose Photo"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/item_takephoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_item_add_image"
+                        android:drawablePadding="10sp"
+                        android:text="Take Photo"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/item_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add"></Button>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

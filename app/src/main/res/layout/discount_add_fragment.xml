@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D3D3D3">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15sp"
+        android:background="@android:color/white"
+        android:layout_marginLeft="15sp"
+        android:layout_marginBottom="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15sp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:padding="15sp"
+            android:id="@+id/discount_name"
+            android:layout_marginBottom="10sp"
+            android:inputType="textPersonName"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15sp"
+            android:background="@android:color/white">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Value"
+                android:layout_weight="1"
+                android:padding="15sp"
+                android:id="@+id/discount_value"
+                android:layout_marginBottom="10sp"
+                android:inputType="number"
+                android:layout_marginRight="15sp"/>
+            <Switch
+                android:id="@+id/switcher"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:textOff="%"
+                android:textOn="E"
+                android:fontFamily="sans-serif-condensed"
+                android:showText="true"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10sp"
+            android:background="@android:color/white">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15sp"
+                android:id="@+id/image_layout"
+                android:layout_above="@+id/abc">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/roundedbutton"
+                    android:layout_marginRight="10sp"
+                    android:id="@+id/cancel_discount"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Discount"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10sp"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/roundedbutton"
+                    android:id="@+id/add_discount"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

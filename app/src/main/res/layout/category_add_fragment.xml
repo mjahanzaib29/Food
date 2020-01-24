@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D3D3D3">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15sp"
+        android:background="@android:color/white"
+        android:layout_marginLeft="15sp"
+        android:layout_marginBottom="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15sp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:padding="15sp"
+            android:id="@+id/category_name"
+            android:layout_marginBottom="10sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10sp"
+            android:background="@android:color/white"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category color"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"/>
+
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:id="@+id/color_scroll"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox1"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="@android:color/holo_red_dark"
+                            android:visibility="visible"
+                            android:layout_marginRight="15sp"/>
+                        <ImageView
+                            android:id="@+id/iv_tick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox2"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="#f53dbe"
+                            android:visibility="visible"
+                            android:layout_marginRight="15sp"/>
+                        <ImageView
+                            android:id="@+id/iv_tick1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox3"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="#f0931a"
+                            android:visibility="visible"
+                            android:layout_marginRight="15sp"/>
+                        <ImageView
+                            android:id="@+id/iv_tick2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox4"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="#d8de2c"
+                            android:visibility="visible"
+                            android:layout_marginRight="15sp"/>
+                        <ImageView
+                            android:id="@+id/iv_tick3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox5"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="#10851a"
+                            android:visibility="visible"
+                            android:layout_marginRight="15sp"/>
+                        <ImageView
+                            android:id="@+id/iv_tick4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox6"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="#5f61d9"
+                            android:visibility="visible"
+                            android:layout_marginRight="15sp"/>
+                        <ImageView
+                            android:id="@+id/iv_tick5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                        <View android:id="@+id/colorbox7"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_alignParentTop="true"
+                            android:background="#a507ad"
+                            android:visibility="visible"/>
+                        <ImageView
+                            android:id="@+id/iv_tick6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_tick"
+                            />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15sp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/roundedbutton"
+                    android:layout_marginRight="10sp"
+                    android:id="@+id/cancel_category"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Category"
+                    android:layout_marginLeft="10sp"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/roundedbutton"
+                    android:id="@+id/add_category"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
