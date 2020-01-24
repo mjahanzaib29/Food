@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,6 +21,7 @@ public class SalesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         salesViewModel =
                 ViewModelProviders.of(this).get(SalesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_sales, container, false);

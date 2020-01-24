@@ -4,6 +4,7 @@ package com.example.food.Sales;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -63,6 +64,7 @@ public class Sales_grid extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.sales_grid, container, false);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
