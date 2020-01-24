@@ -4,9 +4,7 @@ First upload
 AutoFitGridLayoutManager.java
 
 package com.example.food.Sales;
-
 import android.content.Context;
-
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
