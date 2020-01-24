@@ -74,8 +74,15 @@ public class Sales_grid extends Fragment {
         recyclerViewc =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle2);
         recyclerViewd =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle3);
         //this show data in grid Edit spancount for more grids
-//        recyclerViewp.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerViewp.setLayoutManager(gridLayoutManager);
+//        recyclerViewp.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+//        recyclerViewp.setLayoutManager(gridLayoutManager);
+//        int numberOfColumns = 5;
+//        recyclerViewp.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
+//        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
+
+        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getContext(), 300);
+        recyclerViewp.setLayoutManager(layoutManager);
+
 //        recyclerViewp.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerViewc.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerViewd.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
