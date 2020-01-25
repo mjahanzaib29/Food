@@ -97,53 +97,50 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.MyView
                         productList.get(pos).setCount(productList.get(pos).getCount()+1);
                         final String count = String.valueOf(productList.get(pos).getCount());
 
-                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                        Dialog_add_product_to_fragment daptf = new Dialog_add_product_to_fragment();
-//                        daptf.show(activity.getSupportFragmentManager(),"product_qty");
 
-
-
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(v.getContext());
-                        builder1.setMessage("Enter quantity of "+clickeditem.getP_name());
-                        final EditText input = new EditText(v.getContext());
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.MATCH_PARENT);
-                        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                        input.setLayoutParams(lp);
-                        builder1.setView(input);
-                        builder1.setCancelable(true);
-
-                        builder1.setPositiveButton(
-                                "Yes",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
+//                        AlertDialog.Builder builder1 = new AlertDialog.Builder(v.getContext());
+//                        builder1.setMessage("Enter quantity of "+clickeditem.getP_name());
+//                        final EditText input = new EditText(v.getContext());
+//                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                                LinearLayout.LayoutParams.MATCH_PARENT,
+//                                LinearLayout.LayoutParams.MATCH_PARENT);
+//                        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+//                        input.setLayoutParams(lp);
+//                        builder1.setView(input);
+//                        builder1.setCancelable(true);
+//
+//                        builder1.setPositiveButton(
+//                                "Yes",
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+         //      TO SEND DATA TO TICKET FRAGMENT
                                         Intent sendtoticket = new Intent("ticket-data");
                                         sendtoticket.putExtra("product_name",clickeditem.getP_name());
                                         sendtoticket.putExtra("product_price",clickeditem.getP_price());
                                         sendtoticket.putExtra("product_stock",clickeditem.getP_stock());
                                         sendtoticket.putExtra("count",count);
-                                        sendtoticket.putExtra("qty_item",input.getText().toString());
+                                        int qty = 1;
+                                        sendtoticket.putExtra("qty_item",String.valueOf(qty));
                                         sendtoticket.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(sendtoticket);
 
-                                        dialog.cancel();
-                                    }
-                                });
+//                                        dialog.cancel();
+//                                    }
+//                                });
+//
+//                        builder1.setNegativeButton(
+//                                "No",
+//                                new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int id) {
+//                                        dialog.cancel();
+//                                    }
+//                                });
+//
+//                        AlertDialog alert11 = builder1.create();
+//                        alert11.show();
 
-                        builder1.setNegativeButton(
-                                "No",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
 
-                        AlertDialog alert11 = builder1.create();
-                        alert11.show();
-
-//                        TO SEND DATA TO TICKET FRAGMENT
 
 //                        Bundle bundle = new Bundle();
 //                        bundle.putString("product_name",clickeditem.getP_name());
@@ -156,13 +153,6 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.MyView
 //                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
 //                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.ticket,ticketobj).addToBackStack(null).commit();
                     }
-//                    notifyItemChanged(selectedPos);
-//                    selectedPos = getLayoutPosition();
-//                    notifyItemChanged(selectedPos);
-//                    remove(productList.get(selectedPos));
-//                    notifyItemRemoved(selectedPos);
-//                    selectedPos = getLayoutPosition();
-//                    notifyItemRemoved(selectedPos);
 
                 }
 

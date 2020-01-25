@@ -82,7 +82,7 @@ public class Sales_grid extends Fragment {
 //        recyclerViewp.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
 //        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
 
-        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getContext(), 300);
+        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getContext(), 150);
         recyclerViewp.setLayoutManager(layoutManager);
 
 //        recyclerViewp.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));

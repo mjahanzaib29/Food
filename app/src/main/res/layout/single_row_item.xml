@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="100dp"
     android:clickable="true"
     android:padding="3dp"
     >
@@ -49,8 +49,6 @@
                     android:id="@+id/itemlist_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_weight="1"
                     android:gravity="end"
                     android:hint="Price"
                     android:textColor="#ffff"
@@ -64,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="X"
+                android:text="x"
                 android:textColor="#ffff"
                 android:textColorHint="#ffff" >
 
