@@ -138,7 +138,7 @@ public class Sales_grid extends Fragment {
                     category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
                     recyclerViewc.setAdapter(category_adapter);
                     category_adapter.notifyDataSetChanged();
-                    showListinSpinner();
+
                     Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
                 }
 
