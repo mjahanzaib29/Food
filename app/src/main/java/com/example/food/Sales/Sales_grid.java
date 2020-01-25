@@ -18,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.food.APIClient;
@@ -56,6 +58,7 @@ public class Sales_grid extends Fragment {
     private Discount_Adapter discount_adapter;
 
     private GridLayoutManager gridLayoutManager;
+    Spinner sort_dropdown;
 
     public Sales_grid() {
         // Required empty public constructor
@@ -75,7 +78,8 @@ public class Sales_grid extends Fragment {
         recyclerViewp =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle);
         recyclerViewc =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle2);
         recyclerViewd =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle3);
-        //this show data in grid Edit spancount for more grids
+        sort_dropdown = (Spinner) root.findViewById(R.id.sort_dropdown);
+                //this show data in grid Edit spancount for more grids
 //        recyclerViewp.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 //        recyclerViewp.setLayoutManager(gridLayoutManager);
 //        int numberOfColumns = 5;
@@ -134,6 +138,7 @@ public class Sales_grid extends Fragment {
                     category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
                     recyclerViewc.setAdapter(category_adapter);
                     category_adapter.notifyDataSetChanged();
+                    showListinSpinner();
                     Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
                 }
 
@@ -200,5 +205,26 @@ public class Sales_grid extends Fragment {
             item.setIcon(getResources().getDrawable(R.drawable.ic_span_1));
         }
     }
+
+//    WORK FOR DROPDOWN IN SPINNER
+    private void showListinSpinner(){
+    //String array to store all the book names
+    String[] items = new String[categoryList.size()];
+
+    //Traversing through the whole list to get all the names
+    for(int i=0; i<categoryList.size(); i++){
+        //Storing names to string array
+        items[i] = categoryList.get(i).getC_name();
+    }
+
+    //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+    ArrayAdapter<String> adapter;
+    adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+    //setting adapter to spinner
+
+    sort_dropdown.setAdapter(adapter);
+    //Creating an array adapter for list view
+
+}
 
 }
