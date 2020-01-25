@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.BlockedNumberContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Ticket extends Fragment {
+public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     String pname,pprice,pstock,count,dialog_pqty;
     TextView tname,totals;
     LinearLayout linearLayout;
@@ -124,7 +125,7 @@ public class Ticket extends Fragment {
 //            totals.setText(cb);
         ticketGS = new TicketGS(p_name, p_qty, p_price);
         ticketGSList.add(ticketGS);
-        ticketAdapter = new Ticket_Adapter(ticketGSList, getActivity());
+        ticketAdapter = new Ticket_Adapter(ticketGSList, getActivity(),this);
         ticket_recycler.setAdapter(ticketAdapter);
         ticketAdapter.notifyDataSetChanged();
             addition(ticketGSList);
@@ -138,7 +139,13 @@ public class Ticket extends Fragment {
             one += Integer.parseInt(ls.get(i).getProduct_price());
             two = String.valueOf(one);
         }
+        Log.d("Total Value method", "addition: ");
         totals.setText(two);
         Toast.makeText(getActivity(), "final value : " + two, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void updateTotalValue(List<TicketGS> ticketList) {
+        addition(ticketList);
     }
 }

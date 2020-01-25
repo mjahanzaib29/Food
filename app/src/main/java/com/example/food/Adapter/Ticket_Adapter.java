@@ -33,15 +33,17 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
     TicketGS ticket;
     RecyclerView ticket_recycler;
     TextView total;
+    interfaceDelete interfaceDeleteListener;
 
     String overtotalprice="";
 
     int one,two,t;
     //int total  ;
-    public Ticket_Adapter(List<TicketGS> ticketList, Context context)
+    public Ticket_Adapter(List<TicketGS> ticketList, Context context, interfaceDelete interfaceDeleteListener)
     {
         this.ticketList =ticketList;
         this.context = context;
+        this.interfaceDeleteListener = interfaceDeleteListener;
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView ticket_productname,ticket_productqty,ticket_productprice;
@@ -157,9 +159,9 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
                                         "Yes",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-//                                                DeleteItem(ppos);
-//                                                notifyItemRemoved(ppos);
-//                                                notifyItemRangeChanged(ppos,ticketList.size());
+                                                DeleteItem(ppos);
+                                                notifyItemRemoved(ppos);
+                                                notifyItemRangeChanged(ppos,ticketList.size());
                                                 dialog.cancel();
                                             }
                                         });
@@ -192,6 +194,11 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_ticket ,parent,false);
         return new MyViewHolder(v);
     }
+
+    public interface interfaceDelete{
+        void updateTotalValue(List<TicketGS> ticketList);
+    }
+
     int totalsum=0 ;
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
@@ -214,5 +221,6 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
         ticketList.remove(Position);
         notifyItemRemoved(Position);
         notifyItemRangeChanged(Position,ticketList.size());
+        interfaceDeleteListener.updateTotalValue(ticketList);
     }
 }
