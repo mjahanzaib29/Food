@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.food.APIClient;
 import com.example.food.APIInterface;
-import com.example.food.Adapter.Product_Adapter;
+import com.example.food.Adapter.Product_Adapter2;
 import com.example.food.Getter.Product;
 import com.example.food.R;
 
@@ -39,7 +39,7 @@ public class Product_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private APIInterface apiInterface;
     private List<Product> productList;
-    private Product_Adapter product_adapter;
+    private Product_Adapter2 product_adapter;
     private GridLayoutManager gridLayoutManager;
     Button product_add;
     @Override
@@ -78,7 +78,7 @@ public class Product_Fragment extends Fragment {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
                 if (!(productList == null)) {
-                    product_adapter = new Product_Adapter(getActivity().getApplicationContext(), productList);
+                    product_adapter = new Product_Adapter2(getActivity().getApplicationContext(), productList);
 //                RecyclerView.ItemDecoration itemDecoration = new
 //                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 //                recyclerView.addItemDecoration(itemDecoration);

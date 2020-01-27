@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,7 +59,6 @@ public class Sales_grid extends Fragment {
     private Discount_Adapter discount_adapter;
 
     private GridLayoutManager gridLayoutManager;
-    Spinner sort_dropdown;
 
     public Sales_grid() {
         // Required empty public constructor
@@ -77,7 +77,7 @@ public class Sales_grid extends Fragment {
         recyclerViewp =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle);
         recyclerViewc =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle2);
         recyclerViewd =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle3);
-        sort_dropdown = (Spinner) root.findViewById(R.id.sort_dropdown);
+
                 //this show data in grid Edit spancount for more grids
 //        recyclerViewp.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 //        recyclerViewp.setLayoutManager(gridLayoutManager);
@@ -85,7 +85,7 @@ public class Sales_grid extends Fragment {
 //        recyclerViewp.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
 //        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
 
-        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getContext(), 150);
+        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getContext(), 200);
         recyclerViewp.setLayoutManager(layoutManager);
 
 //        recyclerViewp.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -128,28 +128,28 @@ public class Sales_grid extends Fragment {
 
 //        CATEGORY
 
-        Call<List<Category>> callcat = apiInterface.getcategory(type,key);
-        callcat.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> callcat, Response<List<Category>> response) {
-                categoryList = response.body();
-//                showListinSpinner();
-                if (!(categoryList == null)) {
-                    category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
-
-                    recyclerViewc.setAdapter(category_adapter);
-                    category_adapter.notifyDataSetChanged();
-
-                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Category>> callcat, Throwable t) {
-                Toast.makeText(getActivity(), "response not triger", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<List<Category>> callcat = apiInterface.getcategory(type,key);
+//        callcat.enqueue(new Callback<List<Category>>() {
+//            @Override
+//            public void onResponse(Call<List<Category>> callcat, Response<List<Category>> response) {
+//                categoryList = response.body();
+////                showListinSpinner();
+//                if (!(categoryList == null)) {
+//                    category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
+//
+//                    recyclerViewc.setAdapter(category_adapter);
+//                    category_adapter.notifyDataSetChanged();
+//
+//                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Category>> callcat, Throwable t) {
+//                Toast.makeText(getActivity(), "response not triger", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 //        DISCOUNT

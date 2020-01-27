@@ -30,6 +30,9 @@ public class SettingFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+
+
         return root;
     }
 }

@@ -23,13 +23,12 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="30sp"/>
+            android:background="@android:color/darker_gray"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Category"
-            android:drawableLeft="@drawable/ic_item"
+            android:drawableLeft="@drawable/ic_category"
             android:gravity="left|center_vertical"
             android:drawablePadding="10sp"
             android:id="@+id/btn_category"
@@ -38,13 +37,12 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="30sp"/>
+            android:background="@android:color/darker_gray"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Discount"
-            android:drawableLeft="@drawable/ic_item"
+            android:drawableLeft="@drawable/ic_discount"
             android:gravity="left|center_vertical"
             android:drawablePadding="10sp"
             android:id="@+id/btn_Discount"
@@ -53,8 +51,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="30sp"/>
+            android:background="@android:color/darker_gray"/>
     </LinearLayout>
 
 </FrameLayout>
