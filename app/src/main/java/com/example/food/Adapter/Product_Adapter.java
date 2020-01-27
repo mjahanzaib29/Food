@@ -81,7 +81,6 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.MyView
 
                     if (pos != RecyclerView.NO_POSITION){
                         final Product clickeditem = productList.get(pos);
-//                        Toast.makeText(v.getContext(), "clicked :" + clickeditem.getP_name(), Toast.LENGTH_SHORT).show();
                         productList.get(pos).setCount(productList.get(pos).getCount()+1);
                         final String count = String.valueOf(productList.get(pos).getCount());
 
@@ -158,12 +157,6 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.MyView
             }
         }
 
-
-//        public void onClick(View view) {
-//            notifyItemChanged(selectedPos);
-//            selectedPos = getLayoutPosition();
-//            notifyItemChanged(selectedPos);
-//        }
     }
 
     public void remove(Product data) {

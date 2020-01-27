@@ -27,7 +27,7 @@ import com.example.food.APIClient;
 import com.example.food.APIInterface;
 import com.example.food.Adapter.Category_Adapter;
 import com.example.food.Adapter.Discount_Adapter;
-import com.example.food.Adapter.Product_Adapter;
+import com.example.food.Adapter.Product_Adapter1;
 import com.example.food.Getter.Category;
 import com.example.food.Getter.Discount;
 import com.example.food.Getter.Product;
@@ -50,7 +50,7 @@ public class Sales_grid extends Fragment {
     private RecyclerView recyclerViewp,recyclerViewc,recyclerViewd ;
     private APIInterface apiInterface;
     private List<Product> productList;
-    private Product_Adapter product_adapter;
+    private Product_Adapter1 product_adapter;
 
     private List<Category> categoryList;
     private Category_Adapter category_adapter;
@@ -109,7 +109,7 @@ public class Sales_grid extends Fragment {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
                 if (!(productList == null)) {
-                    product_adapter = new Product_Adapter(getActivity().getApplicationContext(), productList);
+                    product_adapter = new Product_Adapter1(productList,getActivity().getApplicationContext());
 //                RecyclerView.ItemDecoration itemDecoration = new
 //                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 //                recyclerView.addItemDecoration(itemDecoration);
@@ -177,6 +177,7 @@ public class Sales_grid extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.meun_main, menu);
+        inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

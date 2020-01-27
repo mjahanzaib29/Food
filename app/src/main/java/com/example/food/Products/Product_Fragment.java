@@ -79,9 +79,9 @@ public class Product_Fragment extends Fragment {
                 productList = response.body();
                 if (!(productList == null)) {
                     product_adapter = new Product_Adapter2(getActivity().getApplicationContext(), productList);
-//                RecyclerView.ItemDecoration itemDecoration = new
-//                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-//                recyclerView.addItemDecoration(itemDecoration);
+                RecyclerView.ItemDecoration itemDecoration = new
+                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+                recyclerView.addItemDecoration(itemDecoration);
 //                recyclerView.setItemAnimator(new SlideInUpAnimator());
                     recyclerView.setAdapter(product_adapter);
                     product_adapter.notifyDataSetChanged();
