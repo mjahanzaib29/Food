@@ -150,10 +150,10 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.MyView
             }
 
             else {
-                product_name = (TextView) productVIew.findViewById(R.id.itemlist_name);
-                product_price = (TextView) productVIew.findViewById(R.id.itemlist_price);
-                product_stock = (TextView) productVIew.findViewById(R.id.itemlist_stock);
-                product_image = (ImageView) productVIew.findViewById(R.id.itemlist_image);
+//                product_name = (TextView) productVIew.findViewById(R.id.itemlist_name);
+//                product_price = (TextView) productVIew.findViewById(R.id.itemlist_price);
+//                product_stock = (TextView) productVIew.findViewById(R.id.itemlist_stock);
+//                product_image = (ImageView) productVIew.findViewById(R.id.itemlist_image);
             }
         }
 

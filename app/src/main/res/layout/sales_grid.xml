@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Sales.Sales_grid"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@drawable/honeycomb">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment" />
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Sales_grid_recycle">
