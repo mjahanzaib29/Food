@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
                 >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/discount_view_name"
                     android:textSize="20dp"
@@ -34,31 +35,34 @@
                     android:hint="Discount Name"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
-                    android:layout_weight="1"/>
+                    android:layout_weight="5"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:hint="price"
                     android:textColor="@color/colorPrimary"
                     android:layout_weight="1"
-                    android:id="@+id/discount_view_price"/>
+                    android:id="@+id/discount_view_price"
+                    android:gravity="center_horizontal"
+                    />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:hint="price"
                     android:textColor="@color/colorPrimary"
-                    android:layout_weight="1"
-                    android:id="@+id/discount_view_type"/>
+                    android:layout_weight="5"
+                    android:id="@+id/discount_view_type"
+                    android:gravity="end"/>
 
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#c0c0c0"
-                android:layout_marginTop="10sp"
-                android:layout_below="@id/vmain"/>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="#c0c0c0"-->
+<!--                android:layout_marginTop="10sp"-->
+<!--                android:layout_below="@id/vmain"/>-->
         </RelativeLayout>
 
 

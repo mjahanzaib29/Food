@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,6 +73,9 @@ public class DiscountFragment extends Fragment {
                 discountList = response.body();
                 if (!(discountList == null)) {
                     discount_adapter = new Discount_Adapter(getActivity().getApplicationContext(), discountList);
+                    RecyclerView.ItemDecoration itemDecoration = new
+                            DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+                    recyclerView.addItemDecoration(itemDecoration);
                     recyclerView.setAdapter(discount_adapter);
                     discount_adapter.notifyDataSetChanged();
                     Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();

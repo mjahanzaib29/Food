@@ -60,7 +60,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
                 new IntentFilter("ticket-reenter"));
 
         totals = (TextView) v.findViewById(R.id.textTotal);
-        tname = (TextView) v.findViewById(R.id.tname);
+//        tname = (TextView) v.findViewById(R.id.tname);
         ticket_recycler = (RecyclerView) v.findViewById(R.id.ticketrecycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         ticket_recycler.setLayoutManager(mLayoutManager);

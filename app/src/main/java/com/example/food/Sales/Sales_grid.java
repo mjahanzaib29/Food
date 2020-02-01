@@ -1,35 +1,35 @@
 package com.example.food.Sales;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.food.APIClient;
 import com.example.food.APIInterface;
 import com.example.food.Adapter.Category_Adapter;
 import com.example.food.Adapter.Discount_Adapter;
+import com.example.food.Adapter.Discount_Adapter2;
 import com.example.food.Adapter.Product_Adapter1;
-import com.example.food.Adapter.Product_Adapter2;
 import com.example.food.Getter.Category;
 import com.example.food.Getter.Discount;
 import com.example.food.Getter.Product;
@@ -55,9 +55,10 @@ public class Sales_grid extends Fragment {
     private Category_Adapter category_adapter;
 
     private List<Discount> discountList;
-    private Discount_Adapter discount_adapter;
+    private Discount_Adapter2 discount_adapter;
 
     private GridLayoutManager gridLayoutManager;
+    Spinner spinner;
 
 
     @Override
@@ -73,6 +74,7 @@ public class Sales_grid extends Fragment {
         recyclerViewp =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle);
         recyclerViewc =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle2);
         recyclerViewd =(RecyclerView) root.findViewById(R.id.Sales_grid_recycle3);
+        spinner = (Spinner) root.findViewById(R.id.spinner_nav);
 
                 //this show data in grid Edit spancount for more grids
 //        recyclerViewp.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -84,28 +86,54 @@ public class Sales_grid extends Fragment {
 //        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(getContext(), 200);
 //        recyclerViewp.setLayoutManager(layoutManager);
 
-        recyclerViewp.setLayoutManager(new AutoFitGridLayoutManager(getActivity().getApplicationContext(),200));
+        recyclerViewp.setLayoutManager(new AutoFitGridLayoutManager(getActivity().getApplicationContext(),250));
         recyclerViewc.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerViewd.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerViewp.setHasFixedSize(true);
         recyclerViewc.setHasFixedSize(true);
         recyclerViewd.setHasFixedSize(true);
 
-        fetchallitems("users", "");
+//        FetchProducts("users", "");
+        FetchCategory("users", "");
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Selection = (String) parent.getItemAtPosition(position);
+                if (Selection == "All products"){
+                    FetchProducts("users", "");
+                    recyclerViewd.setVisibility(View.GONE);
+                    recyclerViewp.setVisibility(View.VISIBLE);
+
+                }
+                else if(Selection == "Discounts"){
+                    FetchDiscount("users","");
+                    recyclerViewd.setVisibility(View.VISIBLE);
+                    recyclerViewp.setVisibility(View.GONE);
+                }
+                return;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+//                FetchProducts("users","");
+            }
+        });
+
         return root;
     }
 
-    public void fetchallitems(String type, String key){
-
-//        PRODUCTS
+    //        PRODUCTS
+    public void FetchProducts(String type, String key) {
         apiInterface = APIClient.getApiClient().create(APIInterface.class);
-        Call<List<Product>> call= apiInterface.getproduct(type,key);
+        Call<List<Product>> call = apiInterface.getproduct(type, key);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
                 if (!(productList == null)) {
-                    product_adapter = new Product_Adapter1(getActivity().getApplicationContext(),productList);
+                    product_adapter = new Product_Adapter1(getActivity().getApplicationContext(), productList);
 //                RecyclerView.ItemDecoration itemDecoration = new
 //                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 //                recyclerView.addItemDecoration(itemDecoration);
@@ -121,61 +149,84 @@ public class Sales_grid extends Fragment {
 
             }
         });
-
-//        CATEGORY
-
-//        Call<List<Category>> callcat = apiInterface.getcategory(type,key);
-//        callcat.enqueue(new Callback<List<Category>>() {
-//            @Override
-//            public void onResponse(Call<List<Category>> callcat, Response<List<Category>> response) {
-//                categoryList = response.body();
-////                showListinSpinner();
-//                if (!(categoryList == null)) {
-//                    category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
-//
-//                    recyclerViewc.setAdapter(category_adapter);
-//                    category_adapter.notifyDataSetChanged();
-//
-//                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Category>> callcat, Throwable t) {
-//                Toast.makeText(getActivity(), "response not triger", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
-//        DISCOUNT
-        Call<List<Discount>> calldis = apiInterface.getdiscount(type, key);
-        calldis.enqueue(new Callback<List<Discount>>() {
-            @Override
-            public void onResponse(Call<List<Discount>> calldis, Response<List<Discount>> response) {
-                discountList = response.body();
-                if (!(discountList == null)) {
-                    discount_adapter = new Discount_Adapter(getActivity().getApplicationContext(), discountList);
-                    recyclerViewd.setAdapter(discount_adapter);
-                    discount_adapter.notifyDataSetChanged();
-                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Discount>> calldis, Throwable t) {
-
-            }
-        });
-
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.meun_main, menu);
-//        inflater.inflate(R.menu.main, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
+//        DISCOUNT
+        public void FetchDiscount(String type, String key) {
+            apiInterface = APIClient.getApiClient().create(APIInterface.class);
+            Call<List<Discount>> calldis = apiInterface.getdiscount(type, key);
+            calldis.enqueue(new Callback<List<Discount>>() {
+                @Override
+                public void onResponse(Call<List<Discount>> calldis, Response<List<Discount>> response) {
+                    discountList = response.body();
+                    if (!(discountList == null)) {
+                        discount_adapter = new Discount_Adapter2(getActivity().getApplicationContext(), discountList);
+                        recyclerViewd.setAdapter(discount_adapter);
+                        discount_adapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Discount>> calldis, Throwable t) {
+
+                }
+            });
+        }
+
+
+
+    //    Category
+        public void FetchCategory(String type, String key){
+            apiInterface = APIClient.getApiClient().create(APIInterface.class);
+            Call<List<Category>> callcat = apiInterface.getcategory(type,key);
+            callcat.enqueue(new Callback<List<Category>>() {
+                @Override
+                public void onResponse(Call<List<Category>> callcat, Response<List<Category>> response) {
+                    categoryList = response.body();
+                    if (!(categoryList == null)) {
+    //                    category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
+    //                    recyclerViewc.setAdapter(category_adapter);
+//                        category_adapter.notifyDataSetChanged();
+                        showListinSpinner();
+    //                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Category>> callcat, Throwable t) {
+                    Toast.makeText(getActivity(), "response not triger", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+           //        inflater.inflate(R.menu.meun_main, menu);
+            inflater.inflate(R.menu.main, menu);
+
+            SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+            SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+            searchView.setSearchableInfo(
+                    searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setIconifiedByDefault(false);
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    FetchProducts("users", query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    FetchProducts("users", newText);
+                    return false;
+                }
+            });
+
+            super.onCreateOptionsMenu(menu, inflater);
+        }
 //
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -204,25 +255,31 @@ public class Sales_grid extends Fragment {
 //        }
 //    }
 
-        //WORK FOR DROPDOWN IN SPINNER
-        private void showListinSpinner(){
-        //String array to store all the book names
-        String[] items = new String[categoryList.size()];
+            //WORK FOR DROPDOWN IN SPINNER
+            private void showListinSpinner(){
+            //String array to store all the book names
+            String[] items = new String[categoryList.size()];
+                int i=0;
+                items[0] = "All products";
+                items[1] = "Discounts";
 
-        //Traversing through the whole list to get all the names
-        for(int i=0; i<categoryList.size(); i++){
-            //Storing names to string array
-            items[i] = categoryList.get(i).getC_name();
+            //Traversing through the whole list to get all the names
+            for(i=2; i<categoryList.size(); i++){
+                //Storing names to string array
+                items[i] = categoryList.get(i).getC_name();
+            }
+
+            //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+            ArrayAdapter<String> adapter;
+            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+            //setting adapter to spinner
+
+                spinner.setAdapter(adapter);
+            //Creating an array adapter for list view
         }
+        String Selection;
+        private void SpinnerSelection(){
 
-        //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-        //setting adapter to spinner
-
-//        sort_dropdown.setAdapter(adapter);
-        //Creating an array adapter for list view
-
-    }
+        }
 
 }
