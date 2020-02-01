@@ -4,43 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:background="@drawable/custom_shape"
-    android:orientation="horizontal"
-    android:layout_margin="5dp">
+    android:orientation="horizontal">
+
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/discountimage"
         android:layout_width="0dp"
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:background="@drawable/v" />
 
     <TextView
         android:id="@+id/discount2_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
         android:background="#972635"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        android:textScaleX="1.2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/discountimage"
+        app:layout_constraintEnd_toEndOf="@+id/discountimage"
+        app:layout_constraintStart_toStartOf="@+id/discountimage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/discount2_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:gravity="center_horizontal"
         android:text="Discount"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/discountimage"
+        app:layout_constraintEnd_toEndOf="@+id/discountimage"
+        app:layout_constraintStart_toStartOf="@+id/discountimage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
