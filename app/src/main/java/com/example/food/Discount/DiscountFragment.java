@@ -72,7 +72,7 @@ public class DiscountFragment extends Fragment {
             public void onResponse(Call<List<Discount>> call, Response<List<Discount>> response) {
                 discountList = response.body();
                 if (!(discountList == null)) {
-                    discount_adapter = new Discount_Adapter(getActivity().getApplicationContext(), discountList);
+                    discount_adapter = new Discount_Adapter(getActivity(), discountList);
                     RecyclerView.ItemDecoration itemDecoration = new
                             DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
                     recyclerView.addItemDecoration(itemDecoration);
@@ -107,8 +107,6 @@ public class DiscountFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-
                 fetchContact("users", query);
                 return false;
             }

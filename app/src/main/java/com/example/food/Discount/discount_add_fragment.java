@@ -4,6 +4,7 @@ package com.example.food.Discount;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.food.APIClient;
 import com.example.food.APIInterface;
 import com.example.food.R;
+import com.example.food.ui.Items.ItemFragment;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,7 +33,7 @@ public class discount_add_fragment extends Fragment {
     APIInterface apiInterface;
     EditText dis_name,dis_value;
     Switch dis_type;
-    public  String type_dis = "Percentage", name_dis = "" , value_dis = "" ;
+    public  String type_dis = "%", name_dis = "" , value_dis = "" ;
     Button add_discount, cancel_discount;
 
 
@@ -60,7 +62,7 @@ public class discount_add_fragment extends Fragment {
                     type_dis = "Price";
                     Toast.makeText(getActivity(), type_dis, Toast.LENGTH_SHORT).show();
                 }else{
-                    type_dis = "Percentage";
+                    type_dis = "%";
                     Toast.makeText(getActivity(), type_dis, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -75,6 +77,15 @@ public class discount_add_fragment extends Fragment {
                 String value = value_dis;
                 create_discount(name, value,type_dis);
 
+            }
+        });
+        cancel_discount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ItemFragment itemFragment = new ItemFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.main,itemFragment);
+                transaction.commit();
             }
         });
 

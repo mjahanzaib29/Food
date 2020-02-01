@@ -14,10 +14,9 @@ import com.example.food.R;
 
 import java.util.List;
 
-public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.MyViewHolder> {
-
-     Context context;
-     List<Discount> discountList;
+public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.MyViewHolder>{
+    private Context context;
+    private List<Discount> discountList;
 
     public Discount_Adapter2(Context context, List<Discount> discountList) {
         this.context = context;
@@ -26,16 +25,16 @@ public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.My
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_discount,parent,false);
-        return new MyViewHolder(v);
+    public Discount_Adapter2.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_discount2,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Discount_Adapter2.MyViewHolder holder, int position) {
         Discount discount = discountList.get(position);
-        holder.discount_name.setText(discount.getD_name());
-        holder.discount_price.setText(discount.getD_value());
+        holder.discount2_name.setText(discount.getD_name()+discount.getD_type());
+        holder.discount2_price.setText(discount.getD_value());
     }
 
     @Override
@@ -44,12 +43,11 @@ public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView discount_name,discount_price;
-        public MyViewHolder(@NonNull View discountView) {
-            super(discountView);
-            discount_name = (TextView) discountView.findViewById(R.id.discount2_name);
-            discount_price = (TextView) discountView.findViewById(R.id.discount2_price);
-
+        TextView discount2_name,discount2_price;
+        public MyViewHolder(@NonNull View discount2View) {
+            super(discount2View);
+            discount2_name = (TextView) discount2View.findViewById(R.id.discount2_name);
+            discount2_price = (TextView)discount2View.findViewById(R.id.discount2_price);
         }
     }
 }

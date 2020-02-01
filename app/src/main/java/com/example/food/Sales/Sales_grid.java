@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.example.food.APIClient;
 import com.example.food.APIInterface;
 import com.example.food.Adapter.Category_Adapter;
-import com.example.food.Adapter.Discount_Adapter;
 import com.example.food.Adapter.Discount_Adapter2;
 import com.example.food.Adapter.Product_Adapter1;
 import com.example.food.Getter.Category;
@@ -88,7 +87,8 @@ public class Sales_grid extends Fragment {
 
         recyclerViewp.setLayoutManager(new AutoFitGridLayoutManager(getActivity().getApplicationContext(),250));
         recyclerViewc.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        recyclerViewd.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+//        recyclerViewd.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recyclerViewd.setLayoutManager(new AutoFitGridLayoutManager(getActivity().getApplicationContext(),250));
         recyclerViewp.setHasFixedSize(true);
         recyclerViewc.setHasFixedSize(true);
         recyclerViewd.setHasFixedSize(true);
