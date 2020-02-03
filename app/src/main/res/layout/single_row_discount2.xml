@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/discountimage"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:background="@drawable/tag"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,10 +20,10 @@
         android:id="@+id/discount2_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#972635"
         android:text="TextView"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/White"
+        app:layout_constraintBottom_toBottomOf="@+id/discountimage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/discountimage"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,9 +44,6 @@
         android:id="@+id/discount2_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:background="#972635"
-        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/discount2_price"
         app:layout_constraintTop_toTopOf="parent" />
