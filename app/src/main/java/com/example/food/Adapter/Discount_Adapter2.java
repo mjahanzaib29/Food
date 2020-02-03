@@ -33,8 +33,9 @@ public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.My
     @Override
     public void onBindViewHolder(@NonNull Discount_Adapter2.MyViewHolder holder, int position) {
         Discount discount = discountList.get(position);
-        holder.discount2_name.setText(discount.getD_name()+discount.getD_type());
+        holder.discount2_name.setText(discount.getD_name());
         holder.discount2_price.setText(discount.getD_value());
+        holder.discount2_type.setText(discount.getD_type());
     }
 
     @Override
@@ -43,11 +44,12 @@ public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView discount2_name,discount2_price;
+        TextView discount2_name,discount2_price,discount2_type;
         public MyViewHolder(@NonNull View discount2View) {
             super(discount2View);
             discount2_name = (TextView) discount2View.findViewById(R.id.discount2_name);
             discount2_price = (TextView)discount2View.findViewById(R.id.discount2_price);
+            discount2_type = (TextView) discount2View.findViewById(R.id.discount2_type);
         }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Sales.Ticket"
     android:orientation="vertical"
-    android:background="@drawable/honeycomb">
+    android:background="@drawable/backg">
 
     <LinearLayout
         android:id="@+id/vv"

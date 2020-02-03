@@ -89,6 +89,12 @@ public interface APIInterface {
             @Query("key") String keyword
     );
 
+    @GET("get_Filtered_Product.php")
+    Call<List<Product>>getSelected(
+        @Query("item_type") String item_type,
+                @Query("key") String keyword
+    );
+
     @POST("post_discount.php")
     Call<ResponseBody> create_discount(
             @Query("dis_name") String dis_name,

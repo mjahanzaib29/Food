@@ -111,6 +111,13 @@ public class Sales_grid extends Fragment {
                     recyclerViewd.setVisibility(View.VISIBLE);
                     recyclerViewp.setVisibility(View.GONE);
                 }
+                else if (Selection != "Discounts" && Selection != "All products"){
+                    CatSearch("users", Selection);
+                    Toast.makeText(getContext(), Selection, Toast.LENGTH_SHORT).show();
+                    recyclerViewd.setVisibility(View.GONE);
+                    recyclerViewp.setVisibility(View.VISIBLE);
+                }
+
                 return;
 
             }
@@ -140,7 +147,7 @@ public class Sales_grid extends Fragment {
 //                recyclerView.setItemAnimator(new SlideInUpAnimator());
                     recyclerViewp.setAdapter(product_adapter);
                     product_adapter.notifyDataSetChanged();
-                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "All Products", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -150,6 +157,33 @@ public class Sales_grid extends Fragment {
             }
         });
     }
+//        Spinner Search by Category
+        public void CatSearch(String type,String key){
+        apiInterface = APIClient.getApiClient().create(APIInterface.class);
+            Call<List<Product>> call = apiInterface.getSelected(type, key);
+            call.enqueue(new Callback<List<Product>>() {
+                @Override
+                public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                    productList = response.body();
+                    if (!(productList == null)) {
+                        product_adapter = new Product_Adapter1(getActivity().getApplicationContext(), productList);
+//                RecyclerView.ItemDecoration itemDecoration = new
+//                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+//                recyclerView.addItemDecoration(itemDecoration);
+//                recyclerView.setItemAnimator(new SlideInUpAnimator());
+                        recyclerViewp.setAdapter(product_adapter);
+                        product_adapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "Selected Category products", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Product>> call, Throwable t) {
+
+                }
+            });
+
+        }
 
 //        DISCOUNT
         public void FetchDiscount(String type, String key) {
@@ -163,7 +197,7 @@ public class Sales_grid extends Fragment {
                         discount_adapter = new Discount_Adapter2(getActivity().getApplicationContext(), discountList);
                         recyclerViewd.setAdapter(discount_adapter);
                         discount_adapter.notifyDataSetChanged();
-                        Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Discounts", Toast.LENGTH_SHORT).show();
                     }
                 }
 
