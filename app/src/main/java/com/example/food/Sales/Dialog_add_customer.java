@@ -17,5 +17,6 @@ public class Dialog_add_customer extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_add_customer,container,false);
         return v;
+
     }
 }
