@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/custumber">
 
         <!-- TODO: Update blank fragment layout -->
 
@@ -24,6 +23,36 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/custumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/vv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ticket"
+            android:textSize="25dp"
+            android:layout_weight="1"></TextView>
+
+        <Button
+            android:id="@+id/ticket_add_customer"
+            android:layout_gravity="end"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ic_customer"></Button>
+
+    </LinearLayout>
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/custumber"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
 
 
     <LinearLayout
@@ -56,8 +85,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/vb"
         android:layout_alignParentBottom="true"
-        android:background="#2fbf71"
+        android:background="#008577"
         android:text="@string/charge"
+        android:textColor="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-34dp"></Button>
 

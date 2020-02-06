@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     RecyclerView ticket_recycler;
     TicketGS ticketGS;
     String two;
+    Button ticket_add_customer;
 
     public Ticket() {
         // Required empty public constructor
@@ -67,6 +70,18 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
 
         // SETTING TOTAL PRICE HERE
         totals.setText(overtotal);
+
+        ticket_add_customer = (Button) v.findViewById(R.id.ticket_add_customer);
+        ticket_add_customer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog_add_customer dialog_add_customer = new Dialog_add_customer();
+                if (dialog_add_customer!=null) {
+                    dialog_add_customer.getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog_add_customer.show(getFragmentManager(), "Dialog_add_customer");
+                }
+            }
+        });
         return v;
     }
 
