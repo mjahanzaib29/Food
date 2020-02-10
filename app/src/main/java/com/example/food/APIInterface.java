@@ -1,6 +1,7 @@
 package com.example.food;
 
 import com.example.food.Getter.Category;
+import com.example.food.Getter.Customer;
 import com.example.food.Getter.Discount;
 import com.example.food.Getter.Product;
 
@@ -69,6 +70,19 @@ public interface APIInterface {
             @Query("i_color") int i_color,
             @Part MultipartBody.Part file,
             @Part("file") RequestBody name
+    );
+    @POST("add_customer")
+    Call<ResponseBody> create_customer(
+            @Query("") String c_name,
+            @Query("") String c_email,
+            @Query("") String c_number,
+            @Query("") String c_note,
+            @Query("") String c_created
+
+            );
+
+    @GET("get_customer.php")
+    Call<List<Customer>>getcustomer(
     );
 
 

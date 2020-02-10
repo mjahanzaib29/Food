@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginVertical="15dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer profile"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical">
+        </TextView>
+
+        <TextView
+            android:id="@+id/save_new_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center_vertical">
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="@color/CadetBlue"
+        android:layout_marginVertical="15dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:errorEnabled="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        android:hint="Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_customer"
+            android:drawableLeft="@drawable/ic_customer"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/customer_email_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/customer_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_mail"
+            android:drawableLeft="@drawable/ic_mail"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:errorEnabled="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/customer_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawableLeft="@drawable/ic_phone"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Note">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/customer_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/ic_msg"
+            android:drawableLeft="@drawable/ic_msg"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/visitdate">
+    </TextView>
+
+
+
+</LinearLayout>
+</RelativeLayout>
+</ScrollView>

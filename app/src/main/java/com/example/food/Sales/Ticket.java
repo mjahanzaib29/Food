@@ -7,29 +7,26 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.BlockedNumberContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.food.Adapter.Ticket_Adapter;
+import com.example.food.Customer.Dialog_add_customer;
 import com.example.food.Getter.TicketGS;
 import com.example.food.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -77,7 +74,6 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
             public void onClick(View v) {
                 Dialog_add_customer dialog_add_customer = new Dialog_add_customer();
                 if (dialog_add_customer!=null) {
-                    dialog_add_customer.getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog_add_customer.show(getFragmentManager(), "Dialog_add_customer");
                 }
             }
