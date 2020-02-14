@@ -71,14 +71,13 @@ public interface APIInterface {
             @Part MultipartBody.Part file,
             @Part("file") RequestBody name
     );
-    @POST("add_customer")
+    @POST("add_customer.php")
     Call<ResponseBody> create_customer(
-            @Query("") String c_name,
-            @Query("") String c_email,
-            @Query("") String c_number,
-            @Query("") String c_note,
-            @Query("") String c_created
-
+            @Query("cu_name") String c_name,
+            @Query("cu_email") String c_email,
+            @Query("cu_number") String c_number,
+            @Query("cu_note") String c_note,
+            @Query("cu_created") String c_created
             );
 
     @GET("get_customer.php")

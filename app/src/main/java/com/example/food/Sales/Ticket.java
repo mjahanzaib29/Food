@@ -33,7 +33,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
-    String pname,pprice,pstock,count,dialog_pqty;
+    String pname,pprice,pstock,count,dialog_pqty , cname,cemail,cphone;
     TextView tname,totals;
     LinearLayout linearLayout;
     private Ticket_Adapter ticketAdapter;
@@ -41,7 +41,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     RecyclerView ticket_recycler;
     TicketGS ticketGS;
     String two;
-    Button ticket_add_customer;
+    Button ticket_add_customer,charge;
 
     public Ticket() {
         // Required empty public constructor
@@ -58,8 +58,11 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
                 new IntentFilter("ticket-data"));
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(productqty,
                 new IntentFilter("ticket-reenter"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(customer,
+                new IntentFilter("customer-data"));
 
         totals = (TextView) v.findViewById(R.id.textTotal);
+        charge = (Button) v.findViewById(R.id.charge);
 //        tname = (TextView) v.findViewById(R.id.tname);
         ticket_recycler = (RecyclerView) v.findViewById(R.id.ticketrecycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -76,6 +79,16 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
                 if (dialog_add_customer!=null) {
                     dialog_add_customer.show(getFragmentManager(), "Dialog_add_customer");
                 }
+            }
+        });
+
+
+//        CHARGE AMOUNT
+        charge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                totals.getText();
+                senddata();
             }
         });
         return v;
@@ -103,6 +116,16 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
             position_qty = intent.getIntExtra("pcount",0);
             overtotal = intent.getStringExtra("settotal");
             updateqty(pname,dialog_pqty,pprice);
+        }
+    };
+// customer data from customer_adapter
+    public BroadcastReceiver customer = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            cname = intent.getStringExtra("cname");
+            cemail = intent.getStringExtra("cemail");
+            cphone = intent.getStringExtra("cphone");
+            Toast.makeText(context, cemail+cphone+cname, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -159,4 +182,16 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     public void updateTotalValue(List<TicketGS> ticketList) {
         addition(ticketList);
     }
+
+
+    public void senddata(){
+        Intent i = new Intent(getActivity().getBaseContext(),Adjust_Charge.class);
+        i.putExtra("totals" , totals.getText().toString());
+        //START ACTIVITY
+        getActivity().startActivity(i);
+    }
+
+
+
+
 }

@@ -38,6 +38,7 @@ public class Dialog_add_customer extends DialogFragment {
     private APIInterface apiInterface;
     private List<Customer> customerList;
     Customer_Adapter customer_adapter;
+    Customer_Adapter adapter = new Customer_Adapter(Dialog_add_customer.this);
 
     @Nullable
     @Override

@@ -1,14 +1,19 @@
 package com.example.food.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.food.Customer.Dialog_add_customer;
 import com.example.food.Getter.Customer;
 import com.example.food.R;
 
@@ -17,6 +22,10 @@ import java.util.List;
 public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyViewHolder> {
     private Context context;
     private List<Customer> customerList;
+    Dialog_add_customer dialog_add_customer;
+    public Customer_Adapter(Dialog_add_customer dialog_add_customer){
+        this.dialog_add_customer=dialog_add_customer;
+    }
 
     public Customer_Adapter(Context context, List<Customer> customerList) {
         this.context = context;
@@ -53,7 +62,16 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
                         Customer clickcustomer =  customerList.get(pos);
+                        Intent send_to_ticket =  new Intent("customer-data");
+                        send_to_ticket.putExtra("cname",clickcustomer.getCu_name());
+                        send_to_ticket.putExtra("cemail",clickcustomer.getCu_email());
+                        send_to_ticket.putExtra("cphone",clickcustomer.getCu_phone());
+                        send_to_ticket.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(send_to_ticket);
 //                        String countVisits = customerList.get(pos).setCount(customerList.get(pos).getCount()+1);
+                        if (dialog_add_customer != null) {
+                            dialog_add_customer.dismiss();
+                        }
                     }
                 }
             });

@@ -41,7 +41,7 @@ public class Product_Adapter1 extends RecyclerView.Adapter<Product_Adapter1.MyVi
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_item, parent, false);
         return new MyViewHolder(v);
     }
-    String url = "http://192.168.15.23:8081/foodstore/";
+    String url = "http://192.168.15.15:8081/foodstore/";
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.itemView.setSelected(selectedPos == position);

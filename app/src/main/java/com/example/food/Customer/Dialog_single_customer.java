@@ -36,8 +36,8 @@ import retrofit2.Response;
 public class Dialog_single_customer extends DialogFragment {
     TextView visitdate,save_new_customer;
 //    EditText customer_name;
-    TextInputEditText customer_name,customer_email,customer_number,customer_note;
-    TextInputLayout customer_email_wrapper;
+    TextInputEditText customer_name,customer_email,customer_number,customer_note,created_customer;
+    TextInputLayout customer_email_wrapper,customer_name_layout;
     private static final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
@@ -58,12 +58,13 @@ public class Dialog_single_customer extends DialogFragment {
         customer_note = (TextInputEditText) v.findViewById(R.id.customer_note);
 
         customer_email_wrapper = (TextInputLayout) v.findViewById(R.id.customer_email_wrapper);
+        customer_name_layout = (TextInputLayout) v.findViewById(R.id.customer_name_layout);
 
-        mydate = java.text.DateFormat.getDateInstance().format(new Date());
+
         customer_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+//                mydate = java.text.DateFormat.getDateInstance().format(new Date());
             }
 
             @Override
@@ -81,7 +82,55 @@ public class Dialog_single_customer extends DialogFragment {
                     customer_email_wrapper.setErrorEnabled(false);
             }
         });
-//
+        customer_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                mydate = java.text.DateFormat.getDateInstance().format(new Date());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                c_name = String.valueOf(customer_name.getText());
+            }
+        });
+        customer_number.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                mydate = java.text.DateFormat.getDateInstance().format(new Date());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                c_number = String.valueOf(customer_number.getText());
+            }
+        });
+        customer_note.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                c_note = String.valueOf(customer_note.getText());
+            }
+        });
+        mydate = java.text.DateFormat.getDateInstance().format(new Date());
+        Toast.makeText(getContext(), mydate, Toast.LENGTH_SHORT).show();
         save_new_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
