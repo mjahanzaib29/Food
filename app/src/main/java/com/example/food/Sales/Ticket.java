@@ -12,6 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.example.food.Customer.Dialog_add_customer;
 import com.example.food.Getter.TicketGS;
 import com.example.food.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,8 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     TextView tname,totals;
     LinearLayout linearLayout;
     private Ticket_Adapter ticketAdapter;
-    private List<TicketGS> ticketGSList = new ArrayList<>();
+    public List<TicketGS> ticketGSList = new ArrayList<>();
+    public List<String> newlist = new ArrayList<>();
     RecyclerView ticket_recycler;
     TicketGS ticketGS;
     String two;
@@ -107,15 +110,16 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     };
 
     int position_qty;
-    String overtotal;
+    String overtotal,productprice;
     public BroadcastReceiver productqty = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             dialog_pqty = intent.getStringExtra("pqty_item");
             //ticket_price = intent.getStringExtra("pqty_price");
             position_qty = intent.getIntExtra("pcount",0);
-            overtotal = intent.getStringExtra("settotal");
-            updateqty(pname,dialog_pqty,pprice);
+            overtotal = intent.getStringExtra("pqty_product");
+            productprice = intent.getStringExtra("pqty_price");
+            updateqty(overtotal,dialog_pqty,productprice);
         }
     };
 // customer data from customer_adapter
@@ -132,7 +136,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
   //  UPDATING QUANTITY OF ITEMS IN TICKET
     public void updateqty(String p_name,String p_qty, String p_price){
         int a1 = Integer.parseInt(dialog_pqty);
-        int b1 = Integer.parseInt(pprice)  ;
+        int b1 = Integer.parseInt(p_price)  ;
         int c1 = a1 * b1;
         p_price = String.valueOf(c1);
         total = c1 ;
@@ -187,11 +191,10 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     public void senddata(){
         Intent i = new Intent(getActivity().getBaseContext(),Adjust_Charge.class);
         i.putExtra("totals" , totals.getText().toString());
+//        i.putStringArrayListExtra("test", (ArrayList<String>) newlist);
+
         //START ACTIVITY
         getActivity().startActivity(i);
     }
-
-
-
 
 }

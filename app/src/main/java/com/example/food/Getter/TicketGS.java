@@ -1,5 +1,8 @@
 package com.example.food.Getter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class TicketGS {
     private String product_name,product_qty,product_price;
     public Double SubTotal,Total;
@@ -33,4 +36,6 @@ public class TicketGS {
     public void setProduct_price(String product_price) {
         this.product_price = product_price;
     }
+
+
 }

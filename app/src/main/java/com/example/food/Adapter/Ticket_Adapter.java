@@ -38,6 +38,12 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
     String overtotalprice="";
 
     int one,two,t;
+
+    public Ticket_Adapter(List<TicketGS> ticketList, Context context) {
+        this.ticketList = ticketList;
+        this.context = context;
+    }
+
     //int total  ;
     public Ticket_Adapter(List<TicketGS> ticketList, Context context, interfaceDelete interfaceDeleteListener)
     {
