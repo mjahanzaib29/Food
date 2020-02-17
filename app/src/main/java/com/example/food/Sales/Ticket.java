@@ -27,9 +27,10 @@ import com.example.food.Customer.Dialog_add_customer;
 import com.example.food.Getter.TicketGS;
 import com.example.food.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +40,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     TextView tname,totals;
     LinearLayout linearLayout;
     private Ticket_Adapter ticketAdapter;
-    public List<TicketGS> ticketGSList = new ArrayList<>();
+    public ArrayList<TicketGS> ticketGSList = new ArrayList<>();
     public List<String> newlist = new ArrayList<>();
     RecyclerView ticket_recycler;
     TicketGS ticketGS;
@@ -192,7 +193,8 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         Intent i = new Intent(getActivity().getBaseContext(),Adjust_Charge.class);
         i.putExtra("totals" , totals.getText().toString());
 //        i.putStringArrayListExtra("test", (ArrayList<String>) newlist);
-
+//        List<TicketGS> ticketlist1 = ticketGSList;
+        i.putParcelableArrayListExtra("Total_list",(ArrayList<? extends Parcelable>)ticketGSList);
         //START ACTIVITY
         getActivity().startActivity(i);
     }

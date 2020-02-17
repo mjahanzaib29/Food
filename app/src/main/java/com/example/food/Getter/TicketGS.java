@@ -3,7 +3,7 @@ package com.example.food.Getter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class TicketGS {
+public class TicketGS implements Parcelable{
     private String product_name,product_qty,product_price;
     public Double SubTotal,Total;
 
@@ -12,6 +12,38 @@ public class TicketGS {
         this.product_qty = product_qty;
         this.product_price = product_price;
     }
+
+
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(product_name);
+        dest.writeString(product_qty);
+        dest.writeString(product_price);
+    }
+    public static final Parcelable.Creator<TicketGS> CREATOR = new Parcelable.Creator<TicketGS>() {
+        public TicketGS createFromParcel(Parcel in) {
+            return new TicketGS(in);
+        }
+
+        public TicketGS[] newArray(int size) {
+            return new TicketGS[size];
+
+        }
+    };
+
+    public TicketGS(Parcel in) {
+        product_name=in.readString();
+        product_price=in.readString();
+        product_qty=in.readString();
+    }
+
 
     public String getProduct_name() {
         return product_name;
@@ -36,6 +68,7 @@ public class TicketGS {
     public void setProduct_price(String product_price) {
         this.product_price = product_price;
     }
+
 
 
 }

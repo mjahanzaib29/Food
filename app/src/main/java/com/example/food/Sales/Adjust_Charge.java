@@ -17,6 +17,7 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -47,7 +48,7 @@ public class Adjust_Charge extends AppCompatActivity {
 
     HashMap<String, UsbDevice> mDeviceList;
     Iterator<UsbDevice> mDeviceIterator;
-    byte[] testBytes;
+    byte[] testBytes ,testBytes1;
 
     Ticket_Adapter ticketAdapter;
     RecyclerView recycler_print;
@@ -57,7 +58,7 @@ public class Adjust_Charge extends AppCompatActivity {
     double finalamount;
     String total,list;
     int received;
-    public List<TicketGS> ticketGSList = new ArrayList<>();
+    ArrayList<TicketGS> final_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +72,20 @@ public class Adjust_Charge extends AppCompatActivity {
 
 
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recycler_print.setLayoutManager(mLayoutManager);
-        recycler_print.setAdapter(ticketAdapter);
+
 
         Intent i = getIntent();
         total = i.getStringExtra("totals");
+         final_data = i. getParcelableArrayListExtra("Total_list");
+
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recycler_print.setLayoutManager(mLayoutManager);
+
+        ticketAdapter = new Ticket_Adapter(final_data,this);
+        recycler_print.setAdapter(ticketAdapter);
+        ticketAdapter.notifyDataSetChanged();
+
 //        list = i.getStringExtra("chargelist");
         if (total != null) {
             cash_total.setText(total);
@@ -181,9 +190,10 @@ public class Adjust_Charge extends AppCompatActivity {
 
 
     private void print(final UsbDeviceConnection connection, final UsbInterface usbInterface) {
-        final String test =  "Your Total"+ total + "\n\n"
+        final String test = ""+
+                "Your Total"+ total + "\n\n"
                 + "Change" + finalamount + "\n\n"
-                + "Charged" + received;
+        + "Charged" + received;
 
         testBytes = test.getBytes();
 
@@ -203,6 +213,7 @@ public class Adjust_Charge extends AppCompatActivity {
 
                     byte[] cut_paper = {0x1D, 0x56, 0x41, 0x10};
                     connection.bulkTransfer(mEndPoint, testBytes, testBytes.length, 0);
+                    connection.bulkTransfer(mEndPoint, testBytes1, testBytes1.length, 0);
                     connection.bulkTransfer(mEndPoint, cut_paper, cut_paper.length, 0);
                 }
             });

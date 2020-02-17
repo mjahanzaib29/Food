@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/vb"
         android:layout_alignParentBottom="true"
-        android:background="#008577"
+        android:background="@color/colorPrimary"
         android:text="@string/charge"
         android:textColor="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"

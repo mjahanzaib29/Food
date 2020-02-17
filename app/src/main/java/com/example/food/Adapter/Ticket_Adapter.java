@@ -220,7 +220,14 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return ticketList.size();
+        try {
+            return ticketList.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return 0;
     }
 
     private void DeleteItem(int Position){
