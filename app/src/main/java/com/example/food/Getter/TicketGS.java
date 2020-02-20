@@ -40,8 +40,8 @@ public class TicketGS implements Parcelable{
 
     public TicketGS(Parcel in) {
         product_name=in.readString();
-        product_price=in.readString();
         product_qty=in.readString();
+        product_price=in.readString();
     }
 
 

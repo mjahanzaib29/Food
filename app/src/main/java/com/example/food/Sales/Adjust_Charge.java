@@ -1,40 +1,57 @@
 package com.example.food.Sales;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.os.StrictMode;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.food.Adapter.PdfDocumentAdapter;
 import com.example.food.Adapter.Ticket_Adapter;
 import com.example.food.Getter.TicketGS;
 import com.example.food.R;
 
-import java.io.Serializable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class Adjust_Charge extends AppCompatActivity {
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
@@ -60,6 +77,9 @@ public class Adjust_Charge extends AppCompatActivity {
     int received;
     ArrayList<TicketGS> final_data;
 
+    private ConstraintLayout llPdf;
+    private Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +89,7 @@ public class Adjust_Charge extends AppCompatActivity {
         change_received = (EditText) findViewById(R.id.ET_cash_change);
         charge = (Button) findViewById(R.id.btn_charge);
         recycler_print = (RecyclerView) findViewById(R.id.recycler_print);
-
-
-
-
+        llPdf = (ConstraintLayout) findViewById(R.id.llPdf);
 
         Intent i = getIntent();
         total = i.getStringExtra("totals");
@@ -124,6 +141,7 @@ public class Adjust_Charge extends AppCompatActivity {
                 }
             }
         });
+
 
 //        charge.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -181,22 +199,177 @@ public class Adjust_Charge extends AppCompatActivity {
         charge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("size"," "+llPdf.getWidth() +"  "+llPdf.getWidth());
+                bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
+                createPdf();
+                pdf();
+
+
                 print(mConnection, mInterface);
             }
         });
 
     }//oncreate-ends
 
+    public static Bitmap loadBitmapFromView(View v, int width, int height) {
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+
+        return b;
+    }
+
+    private void createPdf(){
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        //  Display display = wm.getDefaultDisplay();
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        float hight = displaymetrics.heightPixels ;
+        float width = displaymetrics.widthPixels ;
+
+        int convertHighet = (int) hight, convertWidth = (int) width;
+
+//        Resources mResources = getResources();
+//        Bitmap bitmap = BitmapFactory.decodeResource(mResources, R.drawable.screenshot);
+
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(convertWidth, convertHighet, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        Canvas canvas = page.getCanvas();
+
+        Paint paint = new Paint();
+        canvas.drawPaint(paint);
+
+        bitmap = Bitmap.createScaledBitmap(bitmap, convertWidth, convertHighet, true);
+
+        paint.setColor(Color.WHITE);
+        canvas.drawBitmap(bitmap, 0, 0 , null);
+        document.finishPage(page);
+
+        // write the document content
+        String targetPdf = "/sdcard/pdffromScroll.pdf";
+        File filePath;
+        filePath = new File(targetPdf);
+        try {
+            document.writeTo(new FileOutputStream(filePath));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
+
+        // close the document
+        document.close();
+        Toast.makeText(this, "PDF of Scroll is created!!!", Toast.LENGTH_SHORT).show();
+
+        openGeneratedPDF();
+
+    }
+
+    private void openGeneratedPDF(){
+        if(Build.VERSION.SDK_INT>=24){
+            try{
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        File file = new File("/sdcard/pdffromScroll.pdf");
+        if (file.exists())
+        {
+            Intent intent=new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.fromFile(file);
+            intent.setDataAndType(uri, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            try
+            {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+            }
+            catch(ActivityNotFoundException e)
+            {
+                Toast.makeText(Adjust_Charge.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    private void pdf(){
+        PrintManager printManager=(PrintManager) getSystemService(Context.PRINT_SERVICE);
+        try {
+            PrintDocumentAdapter printDocumentAdapter = new PdfDocumentAdapter(getApplicationContext(),"/sdcard/pdffromScroll.pdf");
+//            printManager.print("/sdcard/pdffromScroll.pdf",printDocumentAdapter,new PrintAttributes().Builder().build());
+            String jobName = getString(R.string.app_name) + " Document";
+            // PrintJob printJob =
+            printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+//        try
+//        {
+//            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(getApplicationContext(),"/sdcard/pdffromScroll.pdf" );
+//        }
+//        printManager.print("Document", printAdapter,new PrintAttributes.Builder().build());
+//
+//        catch (Exception e)
+//        {
+//            Logger.logError(e);
+//        }
+    }
+
+//    private void createWebPrintJob() {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+////            new UIHelper(this).showToast(R.string.min_19);
+//            return;
+//        } else {
+//            // Get a PrintManager instance
+//            PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+//
+//            // Get a print adapter instance
+//            PrintDocumentAdapter printAdapter;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                printAdapter = webView.createPrintDocumentAdapter(getString(R.string.asset_allocation));
+//            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+//                printAdapter = webView.createPrintDocumentAdapter();
+//            } else {
+//                // to satisfy lint.
+//                return;
+//            }
+//
+//            // Create a print job with name and adapter instance
+//            String jobName = getString(R.string.app_name) + " Document";
+//            // PrintJob printJob =
+//            printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
+//        }
+//    }
+
+
+
+
+
+
+
+
+
 
 
     private void print(final UsbDeviceConnection connection, final UsbInterface usbInterface) {
-        final String test = ""+
-                "Your Total"+ total + "\n\n"
-                + "Change" + finalamount + "\n\n"
-        + "Charged" + received;
+        final String test = "Your Total"+ total + "\n\n"
+                + "Change" + String.valueOf(finalamount) + "\n\n"
+                + "Charged" + received;
+//        String tot = "";
+//        for(int i=0; i<=final_data.size(); i++){
+//        tot += final_data.get(i).getProduct_name();
+//
+//        }
 
         testBytes = test.getBytes();
-
+//        testBytes1 = tot.getBytes();
         if (usbInterface == null) {
             Toast.makeText(this, "INTERFACE IS NULL", Toast.LENGTH_SHORT).show();
         } else if (connection == null) {
