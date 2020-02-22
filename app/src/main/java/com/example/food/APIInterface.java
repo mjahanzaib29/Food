@@ -104,8 +104,8 @@ public interface APIInterface {
 
     @GET("get_Filtered_Product.php")
     Call<List<Product>>getSelected(
-        @Query("item_type") String item_type,
-                @Query("key") String keyword
+            @Query("item_type") String item_type,
+            @Query("key") String keyword
     );
 
     @POST("post_discount.php")
@@ -120,4 +120,12 @@ public interface APIInterface {
             @Query("key") String keyword
     );
 
+    @POST("edit_customer.php")
+    Call<ResponseBody> editcustomer(
+            @Query("cu_id") int id,
+            @Query("cu_name") String name,
+            @Query("cu_email") String email,
+            @Query("cu_number") String number,
+            @Query("cu_note") String note
+    );
 }

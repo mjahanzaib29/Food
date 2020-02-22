@@ -7,14 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +34,6 @@ public class Dialog_add_customer extends DialogFragment {
     private APIInterface apiInterface;
     private List<Customer> customerList;
     Customer_Adapter customer_adapter;
-    Customer_Adapter adapter = new Customer_Adapter(Dialog_add_customer.this);
 
     @Nullable
     @Override
@@ -59,12 +54,10 @@ public class Dialog_add_customer extends DialogFragment {
                 if (!(customerList == null)) {
                     customer_adapter = new Customer_Adapter(getActivity().getApplicationContext(), customerList);
                     RecyclerView.ItemDecoration itemDecoration = new
-                            DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
                     recyclerView.addItemDecoration(itemDecoration);
-//                recyclerView.setItemAnimator(new SlideInUpAnimator());
                     recyclerView.setAdapter(customer_adapter);
                     customer_adapter.notifyDataSetChanged();
-                    Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -84,28 +77,6 @@ public class Dialog_add_customer extends DialogFragment {
         add_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Dialog_single_customer dialog_single_customer = new Dialog_single_customer();
-//
-//                Dialog_single_customer dialog_single_customer = new Dialog_single_customer();
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                if (dialog_single_customer !=null){
-//                    dialog_single_customer.show(getFragmentManager(),"Dialog_single_customer");
-//                }
-//                Dialog_single_customer dialog_single_customer = new Dialog_single_customer();
-//                dialog_single_customer.setCancelable(true);
-//                AppCompatActivity activity = (AppCompatActivity) getActivity();
-//                activity.getSupportFragmentManager().popBackStackImmediate();
-//                dialog_single_customer.show(activity.getSupportFragmentManager(), "Dialog_single_customer");
-//                Dialog_single_customer dialog_single_customer = new Dialog_single_customer();
-//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag("Dialog_add_customer");
-//                if (prev != null) {
-//                    ft.remove(prev);
-//                }
-//                ft.addToBackStack(null);
-//                dialog_single_customer.show(ft, "Dialog_single_customer");
-
-
                 Dialog_single_customer dialog_add_customer = new Dialog_single_customer();
                 if (dialog_add_customer!=null) {
                     dialog_add_customer.show(getFragmentManager(), "Dialog_add_customer");

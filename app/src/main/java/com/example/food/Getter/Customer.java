@@ -3,6 +3,8 @@ package com.example.food.Getter;
 import com.google.gson.annotations.SerializedName;
 
 public class Customer {
+    @SerializedName("cu_id")
+    private int cu_id;
     @SerializedName("cu_name")
     private String cu_name;
     @SerializedName("cu_email")
@@ -34,5 +36,12 @@ public class Customer {
 
     public String getCu_phone() {
         return cu_phone;
+    }
+
+    public String getCu_note(){
+        return cu_note;
+    }
+    public int getCu_id(){
+        return getCu_id();
     }
 }

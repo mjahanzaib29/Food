@@ -44,7 +44,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     public List<String> newlist = new ArrayList<>();
     RecyclerView ticket_recycler;
     TicketGS ticketGS;
-    String two;
+    String two="";
     Button ticket_add_customer,charge;
 
     public Ticket() {
@@ -154,32 +154,39 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     int total = 0, Amount = 0;
 //    ADDING SELECTED PRODUCT FROM PRODUCT_ADAPTER INTO TICKET
     public void send_data(String p_name,String p_qty, String p_price) {
-            int a = Integer.parseInt(pprice);
-            int b = Integer.parseInt(dialog_pqty)  ;
-            int c = a * b;
-            p_price = String.valueOf(c);
-            total = c ;
-            Amount =  total;
-            String cb = String.valueOf(Amount);
-//            totals.setText(cb);
+        int a = Integer.parseInt(pprice);
+        int b = Integer.parseInt(dialog_pqty);
+        int c = a * b;
+        p_price = String.valueOf(c);
+        total = c;
+        Amount = total;
+        String cb = String.valueOf(Amount);
+
         ticketGS = new TicketGS(p_name, p_qty, p_price);
         ticketGSList.add(ticketGS);
-        ticketAdapter = new Ticket_Adapter(ticketGSList, getActivity(),this);
+        ticketAdapter = new Ticket_Adapter(ticketGSList, getActivity(), this);
         ticket_recycler.setAdapter(ticketAdapter);
         ticketAdapter.notifyDataSetChanged();
-            addition(ticketGSList);
+        addition(ticketGSList);
+        
     }
 
 //  ADDITION OF TOTAL PRICE
     public void addition(List<TicketGS> ls)
     {
-        int one=0;
-        for(int i = 0; i < ticketGSList.size();i++) {
+        int one=0,i;
+        for(i = 0; i < ticketGSList.size();i++) {
             one += Integer.parseInt(ls.get(i).getProduct_price());
             two = String.valueOf(one);
         }
         Log.d("Total Value method", "addition: ");
-        totals.setText(two);
+           if(ticketGSList.size() != 0){
+               totals.setText(two);
+           }
+           else {
+               totals.setText("0");
+           }
+
         Toast.makeText(getActivity(), "final value : " + two, Toast.LENGTH_SHORT).show();
     }
 
