@@ -20,10 +20,19 @@ public class Customer {
     @SerializedName("cu_lastvisits")
     private String cu_lastvisit;
 
-    public Customer(String cu_name, String cu_email, String cu_phone) {
+//    public Customer(int cu_id, String cu_name, String cu_email, String cu_phone) {
+//        this.cu_id = cu_id;
+//        this.cu_name = cu_name;
+//        this.cu_email = cu_email;
+//        this.cu_phone = cu_phone;
+//    }
+
+    public Customer(int cu_id, String cu_name, String cu_email, String cu_phone, String cu_note) {
+        this.cu_id = cu_id;
         this.cu_name = cu_name;
         this.cu_email = cu_email;
         this.cu_phone = cu_phone;
+        this.cu_note = cu_note;
     }
 
     public String getCu_name() {
@@ -41,6 +50,7 @@ public class Customer {
     public String getCu_note(){
         return cu_note;
     }
+
     public int getCu_id(){
         return getCu_id();
     }

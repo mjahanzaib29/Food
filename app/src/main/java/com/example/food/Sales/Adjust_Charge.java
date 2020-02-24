@@ -70,7 +70,7 @@ public class Adjust_Charge extends AppCompatActivity {
     Ticket_Adapter ticketAdapter;
     RecyclerView recycler_print;
     TextView cash_total, cash_change;
-    EditText change_received;
+    EditText change_received,table;
     Button charge;
     double finalamount;
     String total,list;
@@ -87,6 +87,7 @@ public class Adjust_Charge extends AppCompatActivity {
         cash_total = (TextView) findViewById(R.id.cash_total);
         cash_change = (TextView) findViewById(R.id.cash_change);
         change_received = (EditText) findViewById(R.id.ET_cash_change);
+        table=(EditText) findViewById(R.id.ET_table);
         charge = (Button) findViewById(R.id.btn_charge);
         recycler_print = (RecyclerView) findViewById(R.id.recycler_print);
         llPdf = (ConstraintLayout) findViewById(R.id.llPdf);
@@ -361,7 +362,8 @@ public class Adjust_Charge extends AppCompatActivity {
     private void print(final UsbDeviceConnection connection, final UsbInterface usbInterface) {
         final String test = "Your Total"+ total + "\n\n"
                 + "Change" + String.valueOf(finalamount) + "\n\n"
-                + "Charged" + received;
+                + "Charged" + received
+                + "Table" + table.getText().toString();
 //        String tot = "";
 //        for(int i=0; i<=final_data.size(); i++){
 //        tot += final_data.get(i).getProduct_name();

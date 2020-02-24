@@ -76,6 +76,7 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
                     if (pos != RecyclerView.NO_POSITION){
                         clickcustomer =  customerList.get(pos);
                         Intent send_to_ticket =  new Intent("customer-data");
+
                         send_to_ticket.putExtra("cname",clickcustomer.getCu_name());
                         send_to_ticket.putExtra("cemail",clickcustomer.getCu_email());
                         send_to_ticket.putExtra("cphone",clickcustomer.getCu_phone());
@@ -86,6 +87,7 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
                         builder.setTitle("Edit Customer");
                         LinearLayout linearLayout = new LinearLayout(v.getContext());
                         linearLayout.setOrientation(LinearLayout.VERTICAL);
+
                         final EditText cname = new EditText(v.getContext());
                         cname.setText(clickcustomer.getCu_name());
                         linearLayout.addView(cname);
@@ -107,12 +109,12 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
                         builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                int id = clickcustomer.getCu_id();
+//                                int id = clickcustomer.getCu_id();
                                String name= cname.getText().toString();
                                String email= cemail.getText().toString();
                                String phone= cphone.getText().toString();
                                String note = cnote.getText().toString();
-                               edit_customer(id,name,email,phone,note);
+                               edit_customer(name,email,phone,note);
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -142,9 +144,9 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
             Customer_phone = (TextView) customerView.findViewById(R.id.customer_phone);
         }
     }
-    private void edit_customer(int id,String name,String email, String number, String note){
+    private void edit_customer(String name,String email, String number, String note){
         APIInterface apiInterface = APIClient.getApiClient().create(APIInterface.class);
-        Call<ResponseBody> create = apiInterface.editcustomer(id,name,email,number,note);
+        Call<ResponseBody> create = apiInterface.editcustomer(name,email,number,note);
         create.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
