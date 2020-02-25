@@ -7,34 +7,31 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50sp"
-            android:text="my name is item"
-            android:gravity="center"/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50sp"-->
+<!--            android:text="my name is item"-->
+<!--            android:gravity="center"/>-->
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/recylerview_product"
             android:layout_weight="9"
             />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_margin="@dimen/fab_margin"
             android:layout_width="60sp"
             android:layout_height="60sp"
-            android:text="+"
             android:id="@+id/product_add"
-            android:textSize="30sp"
-            android:background="@drawable/floatingbutton"
-            android:elevation="5sp"
-            android:layout_gravity="bottom|right"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:textColor="#ffff" />
-    </LinearLayout>
+            app:srcCompat="@drawable/ic_add"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
 </LinearLayout>

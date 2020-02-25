@@ -24,6 +24,7 @@ import com.example.food.APIInterface;
 import com.example.food.Adapter.Discount_Adapter;
 import com.example.food.Getter.Discount;
 import com.example.food.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class DiscountFragment extends Fragment {
     private APIInterface apiInterface;
     private List<Discount> discountList;
     private Discount_Adapter discount_adapter;
-    Button discount_btn;
+    FloatingActionButton discount_btn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +46,7 @@ public class DiscountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
         setHasOptionsMenu(true);
-        discount_btn = (Button) view.findViewById(R.id.discount_add);
+        discount_btn = (FloatingActionButton) view.findViewById(R.id.discount_add);
         recyclerView =(RecyclerView) view.findViewById(R.id.recyclerview_discount);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setHasFixedSize(true);

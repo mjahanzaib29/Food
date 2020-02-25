@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".I_navigation">
 
     <LinearLayout
@@ -14,9 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Items"
-            android:drawableLeft="@drawable/ic_item"
+            app:icon="@drawable/ic_item"
+            app:iconPadding="15dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10sp"
+            android:paddingHorizontal="10dp"
             android:id="@+id/btn_item"
             android:textAllCaps="false"
             android:background="@android:color/transparent"/>
@@ -28,9 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Category"
-            android:drawableLeft="@drawable/ic_category"
+            app:icon="@drawable/ic_category"
+            app:iconPadding="15dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:gravity="left|center_vertical"
-            android:drawablePadding="10sp"
+            android:paddingHorizontal="10dp"
             android:id="@+id/btn_category"
             android:textAllCaps="false"
             android:background="@android:color/transparent"/>
@@ -42,8 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Discount"
-            android:drawableLeft="@drawable/ic_discount"
+            app:icon="@drawable/ic_discount"
+            app:iconPadding="15dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:gravity="left|center_vertical"
+            android:paddingHorizontal="10dp"
             android:drawablePadding="10sp"
             android:id="@+id/btn_Discount"
             android:textAllCaps="false"

@@ -140,7 +140,7 @@ public class Sales_grid extends Fragment {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
                 if (!(productList == null)) {
-                    product_adapter = new Product_Adapter1(getActivity().getApplicationContext(), productList);
+                    product_adapter = new Product_Adapter1(getActivity().getBaseContext(), productList);
 //                RecyclerView.ItemDecoration itemDecoration = new
 //                        DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 //                recyclerView.addItemDecoration(itemDecoration);
@@ -304,8 +304,12 @@ public class Sales_grid extends Fragment {
             }
 
             //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-            ArrayAdapter<String> adapter;
-            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
+            ArrayAdapter<String> adapter = null;
+            try {
+                adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, items);
+            }
+            catch (Exception e){}
+
             //setting adapter to spinner
 
                 spinner.setAdapter(adapter);

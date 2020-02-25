@@ -52,6 +52,6 @@ public class Customer {
     }
 
     public int getCu_id(){
-        return getCu_id();
+        return cu_id;
     }
 }

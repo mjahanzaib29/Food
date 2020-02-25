@@ -25,6 +25,7 @@ import com.example.food.APIInterface;
 import com.example.food.Adapter.Product_Adapter2;
 import com.example.food.Getter.Product;
 import com.example.food.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class Product_Fragment extends Fragment {
     private List<Product> productList;
     private Product_Adapter2 product_adapter;
     private GridLayoutManager gridLayoutManager;
-    Button product_add;
+    FloatingActionButton product_add;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class Product_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
 //        IT CALLS SEARCH OPTION
         setHasOptionsMenu(true);
-        product_add = (Button) view.findViewById(R.id.product_add);
+        product_add = (FloatingActionButton) view.findViewById(R.id.product_add);
         recyclerView =(RecyclerView) view.findViewById(R.id.recylerview_product);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setHasFixedSize(true);

@@ -24,6 +24,7 @@ import com.example.food.APIInterface;
 import com.example.food.Adapter.Category_Adapter;
 import com.example.food.Getter.Category;
 import com.example.food.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class CategoryFragment extends Fragment {
     private APIInterface apiInterface;
     private List<Category> categoryList;
     private Category_Adapter category_adapter;
-    Button category_add;
+    FloatingActionButton category_add;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +47,7 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         setHasOptionsMenu(true);
-        category_add = (Button) view.findViewById(R.id.category_add);
+        category_add = (FloatingActionButton) view.findViewById(R.id.category_add);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_category);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setHasFixedSize(true);
@@ -76,7 +77,7 @@ public class CategoryFragment extends Fragment {
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 categoryList = response.body();
                 if (!(categoryList == null)) {
-                    category_adapter = new Category_Adapter(getActivity().getApplicationContext(), categoryList);
+                    category_adapter = new Category_Adapter(getActivity().getBaseContext(), categoryList);
                     recyclerView.setAdapter(category_adapter);
                     category_adapter.notifyDataSetChanged();
                     Toast.makeText(getActivity(), "response triger", Toast.LENGTH_SHORT).show();

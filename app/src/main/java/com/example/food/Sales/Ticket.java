@@ -187,7 +187,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
                totals.setText("0");
            }
 
-        Toast.makeText(getActivity(), "final value : " + two, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), "final value : " + two, Toast.LENGTH_SHORT).show();
     }
 
     @Override

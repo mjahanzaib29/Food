@@ -41,12 +41,12 @@
             android:layout_weight="1"></TextView>
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:id="@+id/ticket_add_customer"
-            android:layout_gravity="end"
-            android:layout_width="24dp"
+            android:layout_width="30dp"
             android:layout_height="24dp"
             android:gravity="center_vertical"
-            android:background="@drawable/ic_customer"></Button>
+            app:icon="@drawable/ic_customer"></Button>
 
     </LinearLayout>
     <View

@@ -109,12 +109,12 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
                         builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-//                                int id = clickcustomer.getCu_id();
+                                int id = clickcustomer.getCu_id();
                                String name= cname.getText().toString();
                                String email= cemail.getText().toString();
                                String phone= cphone.getText().toString();
                                String note = cnote.getText().toString();
-                               edit_customer(name,email,phone,note);
+                               edit_customer(id,name,email,phone,note);
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -144,9 +144,9 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
             Customer_phone = (TextView) customerView.findViewById(R.id.customer_phone);
         }
     }
-    private void edit_customer(String name,String email, String number, String note){
+    private void edit_customer(int id,String name,String email, String number, String note){
         APIInterface apiInterface = APIClient.getApiClient().create(APIInterface.class);
-        Call<ResponseBody> create = apiInterface.editcustomer(name,email,number,note);
+        Call<ResponseBody> create = apiInterface.editcustomer(id,name,email,number,note);
         create.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
