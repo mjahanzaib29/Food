@@ -4,62 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".I_navigation">
-
+    tools:context=".I_navigation"
+    >
+    <View
+        android:layout_width="0.1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_gravity="right"/>
     <LinearLayout
-        android:layout_width="300sp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/item_menu">
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:text="Items"
             app:icon="@drawable/ic_item"
             app:iconPadding="15dp"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:gravity="left|center_vertical"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:id="@+id/btn_item"
             android:textAllCaps="false"
             android:background="@android:color/transparent"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="0.1dp"
+            android:background="@color/colorAccent"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:text="Category"
             app:icon="@drawable/ic_category"
             app:iconPadding="15dp"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:gravity="left|center_vertical"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:id="@+id/btn_category"
             android:textAllCaps="false"
             android:background="@android:color/transparent"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="0.1dp"
+            android:background="@color/colorAccent"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:text="Discount"
             app:icon="@drawable/ic_discount"
             app:iconPadding="15dp"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:gravity="left|center_vertical"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="20dp"
             android:drawablePadding="10sp"
             android:id="@+id/btn_Discount"
             android:textAllCaps="false"
             android:background="@android:color/transparent"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="0.1dp"
+            android:background="@color/colorAccent"/>
     </LinearLayout>
 
 </FrameLayout>

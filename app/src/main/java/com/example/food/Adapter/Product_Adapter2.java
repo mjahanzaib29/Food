@@ -33,7 +33,7 @@ public class Product_Adapter2 extends RecyclerView.Adapter<Product_Adapter2.MyVi
         return new MyViewHolder(root);
     }
 
-    String url = "http://192.168.1.13:8081/foodstore/";
+    String url = "http://192.168.1.14:8081/foodstore/";
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Product product = ProductList.get(position);
