@@ -2,6 +2,7 @@ package com.example.food;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.food.Discount.DiscountFragment;
@@ -25,7 +26,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.SearchView;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
+    // Session Manager Class
+    SessionManager session;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -35,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // Session class instance
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+
+        // email
+        String email = user.get(SessionManager.KEY_EMAIL);
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -56,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+
+
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
