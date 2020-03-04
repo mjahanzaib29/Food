@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -50,6 +51,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -73,9 +75,10 @@ public class Adjust_Charge extends AppCompatActivity {
     EditText change_received,table;
     Button charge;
     double finalamount;
-    String total,list;
+    String total,name,phone,Cashier_name;
     int received;
     ArrayList<TicketGS> final_data;
+    SharedPreferences pref;
 
     private ConstraintLayout llPdf;
     private Bitmap bitmap;
@@ -94,7 +97,11 @@ public class Adjust_Charge extends AppCompatActivity {
 
         Intent i = getIntent();
         total = i.getStringExtra("totals");
-         final_data = i. getParcelableArrayListExtra("Total_list");
+        name = i.getStringExtra("billcname");
+        phone = i.getStringExtra("billcphone");
+        final_data = i. getParcelableArrayListExtra("Total_list");
+        pref = getSharedPreferences("user_details",MODE_PRIVATE);
+        Cashier_name = pref.getString("Name",null);
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -202,8 +209,8 @@ public class Adjust_Charge extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("size"," "+llPdf.getWidth() +"  "+llPdf.getWidth());
                 bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
-                createPdf();
-                pdf();
+//                createPdf();
+//                pdf();
 
 
                 print(mConnection, mInterface);
@@ -264,7 +271,7 @@ public class Adjust_Charge extends AppCompatActivity {
         document.close();
         Toast.makeText(this, "PDF of Scroll is created!!!", Toast.LENGTH_SHORT).show();
 
-        openGeneratedPDF();
+//        openGeneratedPDF();
 
     }
 
@@ -299,18 +306,18 @@ public class Adjust_Charge extends AppCompatActivity {
     }
 
 
-    private void pdf(){
-        PrintManager printManager=(PrintManager) getSystemService(Context.PRINT_SERVICE);
-        try {
-            PrintDocumentAdapter printDocumentAdapter = new PdfDocumentAdapter(getApplicationContext(),"/sdcard/pdffromScroll.pdf");
-//            printManager.print("/sdcard/pdffromScroll.pdf",printDocumentAdapter,new PrintAttributes().Builder().build());
-            String jobName = getString(R.string.app_name) + " Document";
-            // PrintJob printJob =
-            printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+//    private void pdf(){
+//        PrintManager printManager=(PrintManager) getSystemService(Context.PRINT_SERVICE);
+//        try {
+//            PrintDocumentAdapter printDocumentAdapter = new PdfDocumentAdapter(getApplicationContext(),"/sdcard/pdffromScroll.pdf");
+////            printManager.print("/sdcard/pdffromScroll.pdf",printDocumentAdapter,new PrintAttributes().Builder().build());
+//            String jobName = getString(R.string.app_name) + " Document";
+//            // PrintJob printJob =
+//            printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
 //        try
 //        {
 //            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(getApplicationContext(),"/sdcard/pdffromScroll.pdf" );
@@ -321,7 +328,7 @@ public class Adjust_Charge extends AppCompatActivity {
 //        {
 //            Logger.logError(e);
 //        }
-    }
+//    }
 
 //    private void createWebPrintJob() {
 //        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
@@ -359,18 +366,32 @@ public class Adjust_Charge extends AppCompatActivity {
 
 
 
+    byte[] bytes_shope_name,bytes_cashier,bytes_pos,bytes_line,bytes_amount,bytes_change,
+            bytes_cash,bytes_currentTime, bytes_list,bytes_customer_name;
     private void print(final UsbDeviceConnection connection, final UsbInterface usbInterface) {
-        final String test = "Your Total"+ total + "\n\n"
-                + "Change" + String.valueOf(finalamount) + "\n\n"
-                + "Charged" + received
-                + "Table" + table.getText().toString();
-//        String tot = "";
-//        for(int i=0; i<=final_data.size(); i++){
-//        tot += final_data.get(i).getProduct_name();
-//
-//        }
 
-        testBytes = test.getBytes();
+        final String shope_name = "                  Food Store" + "\n";
+        final String cashier = "Cashier:" + Cashier_name + "\n";
+        final String customer = "Customer:" + name       + "\n";
+        final String pos = "POS: Pizza" + "\n";
+        final String line = "------------------------------------------------" + "\n";
+        final String amount = "Total: "+ total + "\n";
+        final String change = "Change: "+ String.valueOf(finalamount) + "\n";
+        final String cash = "Cash: " + received + "\n";
+        final String currentTime = java.text.DateFormat.getDateTimeInstance().format(new Date())+"\n\n\n";
+
+        bytes_customer_name = customer.getBytes();
+        bytes_shope_name = shope_name.getBytes();
+        bytes_cashier = cashier.getBytes();
+        bytes_pos = pos.getBytes();
+        bytes_line = line.getBytes();
+        bytes_amount = amount.getBytes();
+        bytes_change = change.getBytes();
+        bytes_cash = cash.getBytes();
+        bytes_currentTime = currentTime.getBytes();
+
+
+        //testBytes = test.getBytes();
 //        testBytes1 = tot.getBytes();
         if (usbInterface == null) {
             Toast.makeText(this, "INTERFACE IS NULL", Toast.LENGTH_SHORT).show();
@@ -385,10 +406,33 @@ public class Adjust_Charge extends AppCompatActivity {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-
+                    String list = "";
                     byte[] cut_paper = {0x1D, 0x56, 0x41, 0x10};
-                    connection.bulkTransfer(mEndPoint, testBytes, testBytes.length, 0);
-                    connection.bulkTransfer(mEndPoint, testBytes1, testBytes1.length, 0);
+                    byte[] arrayOfByte1 = { 27, 33, 0 };
+                    byte[] format = { 27, 33, 0 };
+
+                    format[2] = ((byte)(0x8 | arrayOfByte1[2]));
+                    format = bytes_shope_name;
+//                    connection.bulkTransfer(mEndPoint,  format,format.length,0);
+                    connection.bulkTransfer(mEndPoint, bytes_shope_name, bytes_shope_name.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_cashier, bytes_cashier.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_customer_name, bytes_customer_name.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_pos, bytes_pos.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_line, bytes_line.length, 0);
+
+                    for(int i=0; i<final_data.size();i++){
+
+                        list = final_data.get(i).getProduct_name()+"\n"+ final_data.get(i).getProduct_qty()+" x "+final_data.get(i).getProduct_price()+"\n";
+                        bytes_list = list.getBytes();
+                        connection.bulkTransfer(mEndPoint, bytes_list, bytes_list.length, 0);
+                    }
+                    connection.bulkTransfer(mEndPoint, bytes_line, bytes_line.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_amount, bytes_amount.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_cash, bytes_cash.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_change, bytes_change.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_line, bytes_line.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_currentTime, bytes_currentTime.length, 0);
+
                     connection.bulkTransfer(mEndPoint, cut_paper, cut_paper.length, 0);
                 }
             });

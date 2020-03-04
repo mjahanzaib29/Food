@@ -126,7 +126,7 @@ public interface APIInterface {
             @Query("cu_id") int id,
             @Query("cu_name") String name,
             @Query("cu_email") String email,
-            @Query("cu_number") String number,
+            @Query("cu_phone") String phone,
             @Query("cu_note") String note
     );
 

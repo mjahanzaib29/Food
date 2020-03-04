@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
     String pname,pprice,pstock,count,dialog_pqty , cname,cemail,cphone;
-    TextView tname,totals;
+    TextView tname,totals,applycustomer;
     LinearLayout linearLayout;
     private Ticket_Adapter ticketAdapter;
     public ArrayList<TicketGS> ticketGSList = new ArrayList<>();
@@ -69,6 +69,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         charge = (Button) v.findViewById(R.id.charge);
 //        tname = (TextView) v.findViewById(R.id.tname);
         ticket_recycler = (RecyclerView) v.findViewById(R.id.ticketrecycler);
+        applycustomer =(TextView) v.findViewById(R.id.applycustomer);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         ticket_recycler.setLayoutManager(mLayoutManager);
 
@@ -92,7 +93,13 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
             @Override
             public void onClick(View v) {
                 totals.getText();
-                senddata();
+                if (cname == null && cphone == null){
+                    senddata();
+                }
+                else{
+                    senddatawithcustomer();
+                }
+
             }
         });
         return v;
@@ -123,7 +130,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
             updateqty(overtotal,dialog_pqty,productprice);
         }
     };
-// customer data from customer_adapter
+// selected customer data from customer_adapter
     public BroadcastReceiver customer = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -131,8 +138,22 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
             cemail = intent.getStringExtra("cemail");
             cphone = intent.getStringExtra("cphone");
             Toast.makeText(context, cemail+cphone+cname, Toast.LENGTH_SHORT).show();
+            if (cname == null){
+                applycustomer.setText(cphone);
+            }
+            else{
+                applycustomer.setText(cname);
+            }
+
         }
     };
+
+//    public BroadcastReceiver customer_forPrint = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//
+//        }
+//    };
 
   //  UPDATING QUANTITY OF ITEMS IN TICKET
     public void updateqty(String p_name,String p_qty, String p_price){
@@ -186,8 +207,6 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
            else {
                totals.setText("0");
            }
-
-//        Toast.makeText(this.getContext(), "final value : " + two, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -195,7 +214,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         addition(ticketList);
     }
 
-
+//Sending data to Adjust Charge for printing
     public void senddata(){
         Intent i = new Intent(getActivity().getBaseContext(),Adjust_Charge.class);
         i.putExtra("totals" , totals.getText().toString());
@@ -206,4 +225,37 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         getActivity().startActivity(i);
     }
 
+    //Sending data to Adjust Charge for printing
+    public void senddatawithcustomer(){
+        Intent i = new Intent(getActivity().getBaseContext(),Adjust_Charge.class);
+        i.putExtra("totals" , totals.getText().toString());
+        i.putExtra("billcname" , cname);
+        i.putExtra("billcphone" , cphone);
+
+//        i.putStringArrayListExtra("test", (ArrayList<String>) newlist);
+//        List<TicketGS> ticketlist1 = ticketGSList;
+        i.putParcelableArrayListExtra("Total_list",(ArrayList<? extends Parcelable>)ticketGSList);
+        //START ACTIVITY
+        getActivity().startActivity(i);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mselectedproducts);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(productqty);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(customer);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //        RECEIVE DATA FROM FROM BROADCAST FROM PRODUCTADAPTER THROUGH ticket-data KEY
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mselectedproducts,
+                new IntentFilter("ticket-data"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(productqty,
+                new IntentFilter("ticket-reenter"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(customer,
+                new IntentFilter("customer-data"));
+    }
 }
