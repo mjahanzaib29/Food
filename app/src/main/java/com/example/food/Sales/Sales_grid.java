@@ -147,7 +147,7 @@ public class Sales_grid extends Fragment {
 //                recyclerView.setItemAnimator(new SlideInUpAnimator());
                     recyclerViewp.setAdapter(product_adapter);
                     product_adapter.notifyDataSetChanged();
-                    Toast.makeText(getActivity(), "All Products", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "All Products", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -229,7 +229,7 @@ public class Sales_grid extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Category>> callcat, Throwable t) {
-                    Toast.makeText(getActivity(), "response not triger", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "response not triger", Toast.LENGTH_SHORT).show();
                 }
             });
         }

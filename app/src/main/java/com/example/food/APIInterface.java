@@ -3,6 +3,7 @@ package com.example.food;
 import com.example.food.Getter.Category;
 import com.example.food.Getter.Customer;
 import com.example.food.Getter.Discount;
+import com.example.food.Getter.Employee;
 import com.example.food.Getter.Product;
 
 import java.util.List;
@@ -127,5 +128,11 @@ public interface APIInterface {
             @Query("cu_email") String email,
             @Query("cu_number") String number,
             @Query("cu_note") String note
+    );
+
+    @GET("get_employee.php")
+    Call<Employee> get_employee(
+            @Query("email") String email,
+            @Query("pass") String pass
     );
 }
