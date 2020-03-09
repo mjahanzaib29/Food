@@ -46,7 +46,7 @@ public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.MyView
         }
         return new MyViewHolder(v,viewType);
     }
-    String url = "http://192.168.1.23:8081/foodstore/";
+    String url = "http://192.168.1.15:8081/foodstore/";
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.itemView.setSelected(selectedPos == position);

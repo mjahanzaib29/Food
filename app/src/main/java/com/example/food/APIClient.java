@@ -1,10 +1,12 @@
 package com.example.food;
 
+import android.content.res.Resources;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
-    public static final String BASE_URL = "http://192.168.1.23:8081/foodstore/";
+    public static final String BASE_URL = "http://192.168.1.15:8081/foodstore/";
     private static Retrofit retrofit=null;
 
     public static Retrofit getApiClient(){

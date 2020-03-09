@@ -75,7 +75,7 @@ public class Adjust_Charge extends AppCompatActivity {
     EditText change_received,table;
     Button charge;
     double finalamount;
-    String total,name,phone,Cashier_name;
+    String total,name,phone,Cashier_name,table_no;
     int received;
     ArrayList<TicketGS> final_data;
     SharedPreferences pref;
@@ -120,6 +120,26 @@ public class Adjust_Charge extends AppCompatActivity {
             finalamount = totalint - received;
 
         }
+
+        table.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (String.valueOf(table) != null){
+                    table_no = String.valueOf(table);
+                }
+
+            }
+        });
 
         change_received.addTextChangedListener(new TextWatcher() {
             @Override
@@ -361,25 +381,22 @@ public class Adjust_Charge extends AppCompatActivity {
 
 
 
-
-
-
-
-
     byte[] bytes_shope_name,bytes_cashier,bytes_pos,bytes_line,bytes_amount,bytes_change,
-            bytes_cash,bytes_currentTime, bytes_list,bytes_customer_name;
+            bytes_cash,bytes_currentTime, bytes_list,bytes_customer_name,bytes_table;
     private void print(final UsbDeviceConnection connection, final UsbInterface usbInterface) {
 
         final String shope_name = "                  Food Store" + "\n";
         final String cashier = "Cashier:" + Cashier_name + "\n";
         final String customer = "Customer:" + name       + "\n";
         final String pos = "POS: Pizza" + "\n";
+        final String table = "Table :" + table_no;
         final String line = "------------------------------------------------" + "\n";
         final String amount = "Total: "+ total + "\n";
         final String change = "Change: "+ String.valueOf(finalamount) + "\n";
         final String cash = "Cash: " + received + "\n";
         final String currentTime = java.text.DateFormat.getDateTimeInstance().format(new Date())+"\n\n\n";
 
+        bytes_table = table_no.getBytes();
         bytes_customer_name = customer.getBytes();
         bytes_shope_name = shope_name.getBytes();
         bytes_cashier = cashier.getBytes();
@@ -418,11 +435,12 @@ public class Adjust_Charge extends AppCompatActivity {
                     connection.bulkTransfer(mEndPoint, bytes_cashier, bytes_cashier.length, 0);
                     connection.bulkTransfer(mEndPoint, bytes_customer_name, bytes_customer_name.length, 0);
                     connection.bulkTransfer(mEndPoint, bytes_pos, bytes_pos.length, 0);
+                    connection.bulkTransfer(mEndPoint, bytes_table,bytes_table.length , 0);
                     connection.bulkTransfer(mEndPoint, bytes_line, bytes_line.length, 0);
 
-                    for(int i=0; i<final_data.size();i++){
-
-                        list = final_data.get(i).getProduct_name()+"\n"+ final_data.get(i).getProduct_qty()+" x "+final_data.get(i).getProduct_price()+"\n";
+                    for(int i=0; i<final_data.size();i++)
+                    {
+                        list = final_data.get(i).getProduct_name()+"          "+ final_data.get(i).getProduct_qty()+" x "+final_data.get(i).getProduct_price()+"\n";
                         bytes_list = list.getBytes();
                         connection.bulkTransfer(mEndPoint, bytes_list, bytes_list.length, 0);
                     }
@@ -432,7 +450,6 @@ public class Adjust_Charge extends AppCompatActivity {
                     connection.bulkTransfer(mEndPoint, bytes_change, bytes_change.length, 0);
                     connection.bulkTransfer(mEndPoint, bytes_line, bytes_line.length, 0);
                     connection.bulkTransfer(mEndPoint, bytes_currentTime, bytes_currentTime.length, 0);
-
                     connection.bulkTransfer(mEndPoint, cut_paper, cut_paper.length, 0);
                 }
             });

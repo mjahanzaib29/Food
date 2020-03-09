@@ -2,13 +2,16 @@ package com.example.food.Sales;
 
 
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,11 +38,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
+public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
     String pname,pprice,pstock,count,dialog_pqty , cname,cemail,cphone;
     TextView tname,totals,applycustomer;
     LinearLayout linearLayout;
-    private Ticket_Adapter ticketAdapter;
+    Ticket_Adapter ticketAdapter;
     public ArrayList<TicketGS> ticketGSList = new ArrayList<>();
     public List<String> newlist = new ArrayList<>();
     RecyclerView ticket_recycler;
@@ -58,12 +61,12 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         View v = inflater.inflate(R.layout.fragment_ticket, container, false);
 
 //        RECEIVE DATA FROM FROM BROADCAST FROM PRODUCTADAPTER THROUGH ticket-data KEY
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mselectedproducts,
-                new IntentFilter("ticket-data"));
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(productqty,
-                new IntentFilter("ticket-reenter"));
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(customer,
-                new IntentFilter("customer-data"));
+//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mselectedproducts,
+//                new IntentFilter("ticket-data"));
+//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(productqty,
+//                new IntentFilter("ticket-reenter"));
+//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(customer,
+//                new IntentFilter("customer-data"));
 
         totals = (TextView) v.findViewById(R.id.textTotal);
         charge = (Button) v.findViewById(R.id.charge);
@@ -72,6 +75,14 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         applycustomer =(TextView) v.findViewById(R.id.applycustomer);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         ticket_recycler.setLayoutManager(mLayoutManager);
+
+//        ItemTouchHelper.SimpleCallback item =
+//                new RecyclerItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(ticket_recycler);
+
+
+
+
 
         // SETTING TOTAL PRICE HERE
         totals.setText(overtotal);
@@ -104,6 +115,28 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         });
         return v;
     }
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback=
+            new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    ticketGSList.remove(viewHolder.getAdapterPosition());
+                    ticketAdapter.notifyDataSetChanged();
+                }
+            };
+
+//    @Override
+//    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+//        if (viewHolder instanceof Ticket_Adapter.MyViewHolder)
+//        {
+//            ticketAdapter.notifyItemRangeRemoved(direction,position);
+//        }
+//    }
+
 
     public BroadcastReceiver mselectedproducts = new BroadcastReceiver() {
         @Override
@@ -258,4 +291,6 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete{
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(customer,
                 new IntentFilter("customer-data"));
     }
+
+
 }

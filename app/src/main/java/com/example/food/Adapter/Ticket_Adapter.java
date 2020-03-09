@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food.Getter.TicketGS;
@@ -33,6 +34,7 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
     TicketGS ticket;
     RecyclerView ticket_recycler;
     TextView total;
+    Ticket_Adapter ticketAdapter;
     interfaceDelete interfaceDeleteListener;
 
     String overtotalprice="";
@@ -55,9 +57,33 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
         TextView ticket_productname,ticket_productqty,ticket_productprice;
         LinearLayout linearLayout;
 
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                Toast.makeText(ListActivity.this, "on Move", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+//                Toast.makeText(ListActivity.this, "on Swiped ", Toast.LENGTH_SHORT).show();
+                //Remove swiped item from list and notify the RecyclerView
+                int position = viewHolder.getAdapterPosition();
+                ticketList.remove(position);
+                ticketAdapter.notifyDataSetChanged();
+
+            }
+        };
+
+
+
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(ticket_recycler);
 
+            ticket_recycler = (RecyclerView) itemView.findViewById(R.id.ticketrecycler) ;
             total = (TextView) itemView.findViewById(R.id.textTotal);
             ticket_productname = (TextView) itemView.findViewById(R.id.ticketitem);
             ticket_productqty = (TextView) itemView.findViewById(R.id.ticketqty);

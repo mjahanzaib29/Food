@@ -41,7 +41,7 @@ public class Product_Adapter1 extends RecyclerView.Adapter<Product_Adapter1.MyVi
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_item, parent, false);
         return new MyViewHolder(v);
     }
-    String url = "http://192.168.1.23:8081/foodstore/";
+    String url = "http://192.168.1.15:8081/foodstore/";
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.itemView.setSelected(selectedPos == position);
@@ -95,9 +95,12 @@ public class Product_Adapter1 extends RecyclerView.Adapter<Product_Adapter1.MyVi
                 product_price = (TextView) productVIew.findViewById(R.id.item_list_price);
                 product_stock = (TextView) productVIew.findViewById(R.id.item_list_stock);
                 product_image = (ImageView) productVIew.findViewById(R.id.item_list_image);
-
         }
 
+    }
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(hasStableIds);
     }
 
     public void remove(Product data) {

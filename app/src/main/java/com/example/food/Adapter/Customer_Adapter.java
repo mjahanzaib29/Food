@@ -24,6 +24,7 @@ import com.example.food.Getter.Customer;
 import com.example.food.R;
 import com.example.food.ui.Sales.SalesFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 import java.util.logging.Handler;
@@ -87,25 +88,44 @@ public class Customer_Adapter extends RecyclerView.Adapter<Customer_Adapter.MyVi
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                         builder.setTitle("Edit Customer");
-                        LinearLayout linearLayout = new LinearLayout(v.getContext());
-                        linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-                        final EditText cname = new EditText(v.getContext());
+                        // set the custom layout
+//                        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        LayoutInflater inflater = (LayoutInflater) v.getContext()
+                                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View customLayout = inflater.inflate(R.layout.edit_customerdialog, null);
+                        builder.setView(customLayout);
+//                        LinearLayout linearLayout = new LinearLayout(v.getContext());
+//                        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+                        final TextInputEditText cname = (TextInputEditText)(customLayout.findViewById(R.id.ec_name));
                         cname.setText(clickcustomer.getCu_name());
-                        linearLayout.addView(cname);
-                        final EditText cemail = new EditText(v.getContext());
+
+                        final TextInputEditText cemail = (TextInputEditText)(customLayout.findViewById(R.id.ec_email));
                         cemail.setText(clickcustomer.getCu_email());
-                        linearLayout.addView(cemail);
-                        final EditText cphone = new EditText(v.getContext());
+
+                        final TextInputEditText cphone = (TextInputEditText)(customLayout.findViewById(R.id.ec_phone));
                         cphone.setText(clickcustomer.getCu_phone());
-                        linearLayout.addView(cphone);
-                        final EditText cnote = new EditText(v.getContext());
+
+                        final TextInputEditText cnote = (TextInputEditText)(customLayout.findViewById(R.id.ec_note));
                         cnote.setText(clickcustomer.getCu_note());
-                        linearLayout.addView(cnote);
+
+
+                        final TextInputEditText cvisits = (TextInputEditText)(customLayout.findViewById(R.id.evisits));
+                        cvisits.setText(clickcustomer.getCu_visits());
+
+
+                        final TextInputEditText cloyalpoints = (TextInputEditText)(customLayout.findViewById(R.id.eroyalty));
+                        cloyalpoints.setText(clickcustomer.getCu_royalty());
+
+
+                        final TextInputEditText clastvisit = (TextInputEditText)(customLayout.findViewById(R.id.elastvisits));
+                        clastvisit.setText(clickcustomer.getCu_lastvisit());
+
 //                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 //                                LinearLayout.LayoutParams.MATCH_PARENT,
 //                                LinearLayout.LayoutParams.MATCH_PARENT);
-                        builder.setView(linearLayout);
+//                        builder.setView(linearLayout);
 
                         builder.setCancelable(true);
                         builder.setNeutralButton("Add to ticket", new DialogInterface.OnClickListener() {

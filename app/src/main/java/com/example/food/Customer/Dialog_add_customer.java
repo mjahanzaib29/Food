@@ -89,6 +89,32 @@ public class Dialog_add_customer extends DialogFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        apiInterface = APIClient.getApiClient().create(APIInterface.class);
+        Call<List<Customer>> call= apiInterface.getcustomer();
+        call.enqueue(new Callback<List<Customer>>() {
+            @Override
+            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                customerList = response.body();
+                if (!(customerList == null)) {
+                    customer_adapter = new Customer_Adapter(getActivity().getApplicationContext(), customerList);
+                    RecyclerView.ItemDecoration itemDecoration = new
+                            DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+                    recyclerView.addItemDecoration(itemDecoration);
+                    recyclerView.setAdapter(customer_adapter);
+                    customer_adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Customer>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();

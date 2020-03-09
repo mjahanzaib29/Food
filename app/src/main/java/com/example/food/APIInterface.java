@@ -5,6 +5,7 @@ import com.example.food.Getter.Customer;
 import com.example.food.Getter.Discount;
 import com.example.food.Getter.Employee;
 import com.example.food.Getter.Product;
+import com.example.food.Getter.Receipt;
 
 import java.util.List;
 
@@ -134,5 +135,10 @@ public interface APIInterface {
     Call<Employee> get_employee(
             @Query("email") String email,
             @Query("pass") String pass
+    );
+
+    @GET("get_receipt.php")
+    Call<List<Receipt>> get_receipt(
+
     );
 }
