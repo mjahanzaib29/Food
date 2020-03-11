@@ -6,6 +6,8 @@ import com.example.food.Getter.Discount;
 import com.example.food.Getter.Employee;
 import com.example.food.Getter.Product;
 import com.example.food.Getter.Receipt;
+import com.example.food.Getter.TicketGS;
+import com.example.food.Sales.Ticket;
 
 import java.util.List;
 
@@ -140,5 +142,10 @@ public interface APIInterface {
     @GET("get_receipt.php")
     Call<List<Receipt>> get_receipt(
 
+    );
+
+    @POST("post_myreceipt.php")
+    Call<ResponseBody> postreceipt(
+            @Query("array") List array
     );
 }

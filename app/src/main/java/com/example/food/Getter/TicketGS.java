@@ -13,9 +13,6 @@ public class TicketGS implements Parcelable{
         this.product_price = product_price;
     }
 
-
-
-
     @Override
     public int describeContents() {
         return 0;

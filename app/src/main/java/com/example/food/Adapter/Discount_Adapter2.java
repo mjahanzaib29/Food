@@ -1,12 +1,15 @@
 package com.example.food.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food.Getter.Discount;
@@ -47,6 +50,23 @@ public class Discount_Adapter2 extends RecyclerView.Adapter<Discount_Adapter2.My
         TextView discount2_name,discount2_price,discount2_type;
         public MyViewHolder(@NonNull View discount2View) {
             super(discount2View);
+            discount2View.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        Discount clickeditem =  discountList.get(pos);
+//                        SEND DATA TO TICKET
+                        Intent senttoticket = new Intent("Discount-to-ticket");
+                        senttoticket.putExtra("discount-name",clickeditem.getD_name());
+                        senttoticket.putExtra("discount-price",clickeditem.getD_value());
+                        senttoticket.putExtra("discount-type",clickeditem.getD_type());
+//                        Toast.makeText(context, clickeditem.getD_name()+clickeditem.getD_type()+clickeditem.getD_value(), Toast.LENGTH_SHORT).show();
+//                        senttoticket.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(senttoticket);
+                    }
+                }
+            });
             discount2_name = (TextView) discount2View.findViewById(R.id.discount2_name);
             discount2_price = (TextView)discount2View.findViewById(R.id.discount2_price);
             discount2_type = (TextView) discount2View.findViewById(R.id.discount2_type);

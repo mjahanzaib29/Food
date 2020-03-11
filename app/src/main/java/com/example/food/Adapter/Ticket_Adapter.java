@@ -53,6 +53,17 @@ public class Ticket_Adapter extends RecyclerView.Adapter<Ticket_Adapter.MyViewHo
         this.context = context;
         this.interfaceDeleteListener = interfaceDeleteListener;
     }
+
+//    @Override
+//    public int getItemViewType(int position) {
+////        return super.getItemViewType(position);
+//        if (ticketList.get(position).getProduct_name()=="Discount"){
+//            return 1;
+//        }
+//        else
+//            return 0;
+//    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView ticket_productname,ticket_productqty,ticket_productprice;
         LinearLayout linearLayout;

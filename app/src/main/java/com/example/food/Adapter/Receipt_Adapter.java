@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Receipt_Adapter extends RecyclerView.Adapter<Receipt_Adapter.MyViewHolder> {
     private Context context;
     private List<Receipt> receiptList;
+
 
     public Receipt_Adapter(Context context, List<Receipt> receiptList) {
         this.context = context;
@@ -32,6 +34,9 @@ public class Receipt_Adapter extends RecyclerView.Adapter<Receipt_Adapter.MyView
     @Override
     public void onBindViewHolder(@NonNull Receipt_Adapter.MyViewHolder holder, int position) {
         Receipt receipt = receiptList.get(position);
+//        holder.receipt_no.setText(receipt);
+//        holder.receipt_dateandtime.setText();
+//        holder.receipt_amount.setText();
     }
 
     @Override
@@ -40,8 +45,13 @@ public class Receipt_Adapter extends RecyclerView.Adapter<Receipt_Adapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView receipt_no,receipt_dateandtime , receipt_amount;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            receipt_no = (TextView) itemView.findViewById(R.id.receipt_no);
+            receipt_dateandtime = (TextView) itemView.findViewById(R.id.receipt_dateandtime);
+            receipt_amount = (TextView) itemView.findViewById(R.id.receipt_amount);
+
         }
     }
 }

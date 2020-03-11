@@ -41,6 +41,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.food.APIClient;
+import com.example.food.APIInterface;
 import com.example.food.Adapter.PdfDocumentAdapter;
 import com.example.food.Adapter.Ticket_Adapter;
 import com.example.food.Getter.TicketGS;
@@ -54,6 +56,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Adjust_Charge extends AppCompatActivity {
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
@@ -79,6 +86,7 @@ public class Adjust_Charge extends AppCompatActivity {
     int received;
     ArrayList<TicketGS> final_data;
     SharedPreferences pref;
+    APIInterface apiInterface;
 
     private ConstraintLayout llPdf;
     private Bitmap bitmap;
@@ -231,6 +239,7 @@ public class Adjust_Charge extends AppCompatActivity {
                 bitmap = loadBitmapFromView(llPdf, llPdf.getWidth(), llPdf.getHeight());
 //                createPdf();
 //                pdf();
+                postlist(final_data);
 
 
                 print(mConnection, mInterface);
@@ -375,6 +384,26 @@ public class Adjust_Charge extends AppCompatActivity {
 //            printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
 //        }
 //    }
+
+    public void postlist(ArrayList<TicketGS> final_data){
+        apiInterface = APIClient.getApiClient().create(APIInterface.class);
+
+        Call<ResponseBody> create_dis= apiInterface.postreceipt(final_data);
+        create_dis.enqueue(new Callback<ResponseBody>() {
+            @Override
+
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
 
 

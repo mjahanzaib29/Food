@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,15 +41,15 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
-    String pname,pprice,pstock,count,dialog_pqty , cname,cemail,cphone;
-    TextView tname,totals,applycustomer;
+    String pname,pprice,pstock,count,dialog_pqty , cname,cemail,cphone  , dname,dtype,dprice;
+    TextView discount,totals,applycustomer;
     LinearLayout linearLayout;
     Ticket_Adapter ticketAdapter;
     public ArrayList<TicketGS> ticketGSList = new ArrayList<>();
     public List<String> newlist = new ArrayList<>();
     RecyclerView ticket_recycler;
     TicketGS ticketGS;
-    String two="";
+    String two="" ,twotwo = "";
     Button ticket_add_customer,charge;
 
     public Ticket() {
@@ -126,6 +128,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                     ticketGSList.remove(viewHolder.getAdapterPosition());
                     ticketAdapter.notifyDataSetChanged();
+                    addition(ticketGSList);
                 }
             };
 
@@ -181,12 +184,14 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         }
     };
 
-//    public BroadcastReceiver customer_forPrint = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//
-//        }
-//    };
+    public BroadcastReceiver selecteddiscount = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            dname = intent.getStringExtra("discount-name");
+            dtype = intent.getStringExtra("discount-type");
+            dprice = intent.getStringExtra("discount-price");
+        }
+    };
 
   //  UPDATING QUANTITY OF ITEMS IN TICKET
     public void updateqty(String p_name,String p_qty, String p_price){
@@ -196,7 +201,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         p_price = String.valueOf(c1);
         total = c1 ;
         Amount =  total;
-        String cb = String.valueOf(Amount);
+//        String cb = String.valueOf(Amount);
 //        totals.setText(cb);
         ticketGS = new TicketGS(p_name, p_qty, p_price);
         ticketGSList.set(position_qty,ticketGS);
@@ -207,7 +212,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
 
     int total = 0, Amount = 0;
 //    ADDING SELECTED PRODUCT FROM PRODUCT_ADAPTER INTO TICKET
-    public void send_data(String p_name,String p_qty, String p_price) {
+    public void send_data(String p_name,String p_qty,String p_price) {
         int a = Integer.parseInt(pprice);
         int b = Integer.parseInt(dialog_pqty);
         int c = a * b;
@@ -225,6 +230,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         
     }
 
+    int totaldiscountvalue;
 //  ADDITION OF TOTAL PRICE
     public void addition(List<TicketGS> ls)
     {
@@ -233,13 +239,62 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
             one += Integer.parseInt(ls.get(i).getProduct_price());
             two = String.valueOf(one);
         }
+
         Log.d("Total Value method", "addition: ");
-           if(ticketGSList.size() != 0){
-               totals.setText(two);
-           }
-           else {
-               totals.setText("0");
-           }
+        if(ticketGSList.size() != 0){
+            totals.setText(two);
+            totals.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (dtype != null && dprice != null){
+                        if (dtype == "%"){
+                            int valueone = Integer.parseInt(two); //500
+                            int valuetwo = Integer.parseInt(dprice); //2
+                            int valuethree = valueone/100; // 500/100 = 5
+                            totaldiscountvalue = valuethree*valuetwo; // 5*2 = 10
+                            Toast.makeText(getContext(), "% "+totaldiscountvalue, Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            int valueone = Integer.parseInt(two);
+                            int valuetwo = Integer.parseInt(dprice);
+                            int valuethree = valueone - valuetwo;
+                            totaldiscountvalue = valuethree;
+                            Toast.makeText(getContext(), "price "+totaldiscountvalue, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (String.valueOf(totaldiscountvalue) !=null  && totals != null) {
+                        int valuetotal = Integer.parseInt(two);
+                        int valuenew = valuetotal - totaldiscountvalue;
+                        twotwo = String.valueOf(valuenew);
+                        Toast.makeText(getContext(), "YYYY" + twotwo, Toast.LENGTH_SHORT).show();
+                        try {
+                            totals.setText(twotwo);
+                        }
+                        catch (Exception e){}
+//
+                    }
+//                    else
+//                    {
+//                        totals.setText(two);
+//                    }
+                }
+            });
+        }
+        else {
+            totals.setText("0");
+        }
     }
 
     @Override
@@ -278,6 +333,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mselectedproducts);
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(productqty);
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(customer);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(selecteddiscount);
     }
 
     @Override
@@ -290,6 +346,8 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
                 new IntentFilter("ticket-reenter"));
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(customer,
                 new IntentFilter("customer-data"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(selecteddiscount,
+                new IntentFilter("Discount-to-ticket"));
     }
 
 
