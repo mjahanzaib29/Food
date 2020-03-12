@@ -33,6 +33,8 @@ import com.example.food.Getter.TicketGS;
 import com.example.food.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -184,12 +186,14 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         }
     };
 
+
     public BroadcastReceiver selecteddiscount = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             dname = intent.getStringExtra("discount-name");
             dtype = intent.getStringExtra("discount-type");
             dprice = intent.getStringExtra("discount-price");
+            Toast.makeText(context, "Selected" + dtype + dprice, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -243,57 +247,32 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         Log.d("Total Value method", "addition: ");
         if(ticketGSList.size() != 0){
             totals.setText(two);
-            totals.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            if (totals.getText() != null && dprice == null){
+              totals.setText(two);
+            }
+            else if (totals.getText() != null && dprice != null){
+                ticketAdapter.notifyDataSetChanged();
+                if (dtype == "%") {
+                    int tot, dis;
+                    int finalamount;
+                    dis = Integer.parseInt(dprice);
+                    tot = Integer.parseInt(totals.getText().toString());
+                    finalamount = (tot * dis) / 100;
+                    int lastamount = tot - finalamount;
+                    totals.setText(String.valueOf(lastamount));
+                }
+                else {
+                    int dis,tot,finalamount ;
+                    dis =Integer.parseInt(dprice);
+                    tot = Integer.parseInt(totals.getText().toString());
+                    finalamount = tot - dis;
+                    totals.setText(String.valueOf(finalamount));
 
                 }
-
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (dtype != null && dprice != null){
-                        if (dtype == "%"){
-                            int valueone = Integer.parseInt(two); //500
-                            int valuetwo = Integer.parseInt(dprice); //2
-                            int valuethree = valueone/100; // 500/100 = 5
-                            totaldiscountvalue = valuethree*valuetwo; // 5*2 = 10
-                            Toast.makeText(getContext(), "% "+totaldiscountvalue, Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            int valueone = Integer.parseInt(two);
-                            int valuetwo = Integer.parseInt(dprice);
-                            int valuethree = valueone - valuetwo;
-                            totaldiscountvalue = valuethree;
-                            Toast.makeText(getContext(), "price "+totaldiscountvalue, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    if (String.valueOf(totaldiscountvalue) !=null  && totals != null) {
-                        int valuetotal = Integer.parseInt(two);
-                        int valuenew = valuetotal - totaldiscountvalue;
-                        twotwo = String.valueOf(valuenew);
-                        Toast.makeText(getContext(), "YYYY" + twotwo, Toast.LENGTH_SHORT).show();
-                        try {
-                            totals.setText(twotwo);
-                        }
-                        catch (Exception e){}
-//
-                    }
-//                    else
-//                    {
-//                        totals.setText(two);
-//                    }
-                }
-            });
+            }
         }
-        else {
-            totals.setText("0");
+           else {
+               totals.setText("0");
         }
     }
 
