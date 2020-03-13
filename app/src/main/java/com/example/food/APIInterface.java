@@ -141,7 +141,7 @@ public interface APIInterface {
 
     @GET("get_receipt.php")
     Call<List<Receipt>> get_receipt(
-
+            @Query("re_id") String receipt_id
     );
 
     @POST("post_myreceipt.php")
