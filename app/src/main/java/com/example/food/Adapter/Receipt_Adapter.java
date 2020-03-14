@@ -1,6 +1,8 @@
 package com.example.food.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +67,47 @@ public class Receipt_Adapter extends RecyclerView.Adapter<Receipt_Adapter.MyView
                         Intent intent = new Intent("Selected-Receipt-more-info");
                         intent.putExtra("receipt_id",receiptclickeditem.getRe_id());
                         LocalBroadcastManager.getInstance(v.getContext()).sendBroadcast(intent);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                        builder.setTitle("Receipt");
+
+                        LayoutInflater inflater = (LayoutInflater) v.getContext()
+                                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View customLayout = inflater.inflate(R.layout.receipt_complete_dialog, null);
+                        builder.setView(customLayout);
+
+                        TextView receipt_total = (TextView) customLayout.findViewById(R.id.receipt_total);
+                        receipt_total.setText(receiptclickeditem.getRp_total());
+                        TextView receipt_cashier = (TextView) customLayout.findViewById(R.id.receipt_cashier);
+                        receipt_cashier.setText(receiptclickeditem.getRe_employee());
+                        TextView receipt_pos = (TextView) customLayout.findViewById(R.id.receipt_pos);
+                        receipt_pos.setText(receiptclickeditem.getRe_store());
+                        TextView receipt_billamount = (TextView) customLayout.findViewById(R.id.receipt_billamount);
+                        receipt_billamount.setText(receiptclickeditem.getRe_total());
+                        TextView receipt_paid_amount = (TextView) customLayout.findViewById(R.id.receipt_paid_amount);
+                        receipt_paid_amount.setText(receiptclickeditem.getRp_cash());
+                        TextView receipt_dateandtime = (TextView) customLayout.findViewById(R.id.receipt_dateandtime);
+                        receipt_dateandtime.setText(receiptclickeditem.getRe_date());
+                        TextView receipt_receiptid = (TextView) customLayout.findViewById(R.id.receipt_receiptid);
+                        receipt_receiptid.setText(receiptclickeditem.getRe_id());
+
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                        AlertDialog alert11 = builder.create();
+                        alert11.show();
+
+                        if (alert11!= null){
+                            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+                            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+                            alert11.getWindow().setLayout(width, height);
+                        }
+
+
                     }
                 }
             });

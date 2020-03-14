@@ -43,7 +43,7 @@ import java.util.List;
  */
 public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
     String pname,pprice,pstock,count,dialog_pqty , cname,cemail,cphone  , dname,dtype,dprice;
-    TextView discount,totals,applycustomer;
+    TextView textViewtotal,totals,applycustomer;
     LinearLayout linearLayout;
     Ticket_Adapter ticketAdapter;
     public ArrayList<TicketGS> ticketGSList = new ArrayList<>();
@@ -73,7 +73,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
 
         totals = (TextView) v.findViewById(R.id.textTotal);
         charge = (Button) v.findViewById(R.id.charge);
-//        tname = (TextView) v.findViewById(R.id.tname);
+        textViewtotal = (TextView) v.findViewById(R.id.textViewtotal);
         ticket_recycler = (RecyclerView) v.findViewById(R.id.ticketrecycler);
         applycustomer =(TextView) v.findViewById(R.id.applycustomer);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -106,14 +106,12 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
         charge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                totals.getText();
-                if (cname == null && cphone == null){
+                charge.setVisibility(View.VISIBLE);
+                if (cname == null && cphone == null) {
                     senddata();
-                }
-                else{
+                } else {
                     senddatawithcustomer();
                 }
-
             }
         });
         return v;
@@ -245,6 +243,9 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
 
         Log.d("Total Value method", "addition: ");
         if(ticketGSList.size() != 0){
+            charge.setVisibility(View.VISIBLE);
+            textViewtotal.setVisibility(View.VISIBLE);
+            totals.setVisibility(View.VISIBLE);
             totals.setText(two);
             if (totals.getText() != null && dprice == null){
               totals.setText(two);
@@ -271,6 +272,9 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
             }
         }
            else {
+               charge.setVisibility(View.INVISIBLE);
+               totals.setVisibility(View.INVISIBLE);
+               textViewtotal.setVisibility(View.INVISIBLE);
                totals.setText("0");
         }
     }

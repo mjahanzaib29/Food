@@ -42,13 +42,13 @@ public class Receipts extends Fragment {
         receipt_recyclerView = (RecyclerView) view.findViewById(R.id.receipts_recyclerview);
         receipt_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         receipt_recyclerView.setHasFixedSize(true);
-        fetchReceipts("");
+        fetchReceipts();
         return view;
     }
 
-    public void fetchReceipts(String receipt_id){
+    public void fetchReceipts(){
         apiInterface = APIClient.getApiClient().create(APIInterface.class);
-        Call<List<Receipt>> callreceipt = apiInterface.get_receipt(receipt_id);
+        Call<List<Receipt>> callreceipt = apiInterface.get_receipt();
         callreceipt.enqueue(new Callback<List<Receipt>>() {
             @Override
             public void onResponse(Call<List<Receipt>> call, Response<List<Receipt>> response) {
@@ -74,8 +74,8 @@ public class Receipts extends Fragment {
     public BroadcastReceiver receiptid = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            received_receiptid = intent.getStringExtra("receipt_id");
-            fetchReceipts(received_receiptid);
+//            received_receiptid = intent.getStringExtra("receipt_id");
+//            fetchReceipts(received_receiptid);
         }
     };
 }
