@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".Sales.Sales_grid">
+    tools:context=".Sales.Sales_grid"
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout2"
