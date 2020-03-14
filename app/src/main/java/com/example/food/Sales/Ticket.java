@@ -243,6 +243,7 @@ public class Ticket extends Fragment implements Ticket_Adapter.interfaceDelete {
 
         Log.d("Total Value method", "addition: ");
         if(ticketGSList.size() != 0){
+
             charge.setVisibility(View.VISIBLE);
             textViewtotal.setVisibility(View.VISIBLE);
             totals.setVisibility(View.VISIBLE);
